@@ -1,0 +1,32 @@
+{
+  "name": "kutt",
+  "version": "1.0.0",
+  "description": "Node.js package for Kutt.it url shortener",
+  "author": "Ardalan Amini <ardalanamini22@gmail.com> [https://github.com/ardalanamini]",
+  "license": "MIT",
+  "homepage": "https://kutt.it",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ardalanamini/node-kutt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ardalanamini/node-kutt/issues"
+  },
+  "keywords": [
+    "kutt",
+    "url",
+    "shortener"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^10.12.2",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}

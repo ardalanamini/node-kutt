@@ -1,2 +1,3 @@
 # node-kutt
-node package for Kutt.it url shortener
+
+Node.js package for Kutt.it url shortener
