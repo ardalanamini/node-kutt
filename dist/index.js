@@ -7,61 +7,76 @@ const CONFIG = {
 };
 class Kutt {
     constructor() {
-        this.config = CONFIG;
-        this.axios = axios_1.default.create({
-            baseURL: this.config.API,
+        this._config = CONFIG;
+    }
+    _request(method, path, data, callback) {
+        if (typeof data === "function") {
+            callback = data;
+            data = undefined;
+        }
+        const request = axios_1.default({
+            method,
+            data,
+            baseURL: this._config.API,
+            url: path,
             headers: {
-                "X-API-Key": this.config.KEY,
+                "X-API-Key": this._config.KEY,
             },
         });
+        if (!callback)
+            return request;
+        request
+            .then(response => callback(null, response.data))
+            .catch((err) => callback(err));
     }
+    /**
+     * Sets instance's API address
+     */
     setAPI(api) {
-        this.config.API = api;
+        this._config.API = api;
         return this;
     }
-    ;
+    /**
+     * Sets instance's API key
+     */
     setKey(key) {
-        this.config.KEY = key;
+        this._config.KEY = key;
         return this;
     }
-    ;
+    /**
+     * Sets instance's custom domain
+     */
     setDomain(domain) {
-        this.config.DOMAIN = domain;
+        this._config.DOMAIN = domain;
         return this;
     }
-    ;
-    getUrls(callback) {
-        const request = this.axios.get("/api/url/geturls");
-        if (!callback)
-            return request;
-        request
-            .then((urls) => callback(null, urls))
-            .catch((err) => callback(err));
+    list(callback) {
+        return this._request("get", "/api/url/geturls", callback);
     }
-    ;
     submit(data, callback) {
-        const request = this.axios.post("/api/url/submit", data);
-        if (!callback)
-            return request;
-        request
-            .then((url) => callback(null, url))
-            .catch((err) => callback(err));
+        return this._request("post", "/api/url/submit", data, callback);
     }
-    ;
     delete(id, callback) {
-        const request = this.axios.post("/api/url/deleteurl", {
+        return this._request("post", "/api/url/deleteurl", {
             id,
-            domain: this.config.DOMAIN,
-        });
-        if (!callback)
-            return request;
-        request
-            .then((url) => callback(null, url))
-            .catch((err) => callback(err));
+            domain: this._config.DOMAIN,
+        }, callback);
     }
-    ;
+    stats(id, callback) {
+        const domain = this._config.DOMAIN;
+        return this._request("get", `/api/url/stats?id=${id}${domain ? `&domain=${domain}` : ""}`, callback);
+    }
 }
+/**
+ * Sets global API address
+ */
 Kutt.setAPI = (api) => CONFIG.API = api;
+/**
+ * Sets global API key
+ */
 Kutt.setKey = (key) => CONFIG.KEY = key;
+/**
+ * Sets global custom domain
+ */
 Kutt.setDomain = (domain) => CONFIG.DOMAIN = domain;
 module.exports = Kutt;
