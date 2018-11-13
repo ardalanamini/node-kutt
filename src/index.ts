@@ -105,7 +105,9 @@ class Kutt {
       },
     });
 
-    if (!callback) return request;
+    if (!callback) {
+      return new Promise((resolve, rejects) => request.then(response => resolve(response.data)).catch(rejects));
+    }
 
     request
       .then(response => (callback as any)(null, response.data))
