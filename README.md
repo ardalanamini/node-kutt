@@ -9,14 +9,14 @@ Node.js client for Kutt.it url shortener
 [![Npm Monthly Downloads](https://img.shields.io/npm/dm/kutt.svg)](https://www.npmjs.com/package/kutt)
 [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/kutt.svg)](https://www.npmjs.com/package/kutt)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/kutt.svg)](https://www.npmjs.com/package/kutt)
-[![Open Issues](https://img.shields.io/github/issues-raw/ardalanamini/kutt.svg)](https://github.com/ardalanamini/kutt/issues?q=is%3Aopen+is%3Aissue)
-[![Closed Issues](https://img.shields.io/github/issues-closed-raw/ardalanamini/kutt.svg)](https://github.com/ardalanamini/kutt/issues?q=is%3Aissue+is%3Aclosed)
-[![Known Vulnerabilities](https://snyk.io/test/github/ardalanamini/kutt/badge.svg?targetFile=package.json)](https://snyk.io/test/github/ardalanamini/kutt?targetFile=package.json)
-[![Dependencies Status](https://david-dm.org/ardalanamini/kutt.svg)](https://david-dm.org/ardalanamini/kutt)
-[![Pull Requests](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/ardalanamini/kutt/pulls)
-[![License](https://img.shields.io/github/license/ardalanamini/kutt.svg)](https://github.com/ardalanamini/kutt/blob/master/LICENSE)
-[![Github Stars](https://img.shields.io/github/stars/ardalanamini/kutt.svg?style=social&label=Stars)](https://github.com/ardalanamini/kutt)
-[![Github Forks](https://img.shields.io/github/forks/ardalanamini/kutt.svg?style=social&label=Fork)](https://github.com/ardalanamini/kutt)
+[![Open Issues](https://img.shields.io/github/issues-raw/ardalanamini/node-kutt.svg)](https://github.com/ardalanamini/node-kutt/issues?q=is%3Aopen+is%3Aissue)
+[![Closed Issues](https://img.shields.io/github/issues-closed-raw/ardalanamini/node-kutt.svg)](https://github.com/ardalanamini/node-kutt/issues?q=is%3Aissue+is%3Aclosed)
+[![Known Vulnerabilities](https://snyk.io/test/github/ardalanamini/node-kutt/badge.svg?targetFile=package.json)](https://snyk.io/test/github/ardalanamini/node-kutt?targetFile=package.json)
+[![Dependencies Status](https://david-dm.org/ardalanamini/node-kutt.svg)](https://david-dm.org/ardalanamini/node-kutt)
+[![Pull Requests](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/ardalanamini/node-kutt/pulls)
+[![License](https://img.shields.io/github/license/ardalanamini/node-kutt.svg)](https://github.com/ardalanamini/node-kutt/blob/master/LICENSE)
+[![Github Stars](https://img.shields.io/github/stars/ardalanamini/node-kutt.svg?style=social&label=Stars)](https://github.com/ardalanamini/node-kutt)
+[![Github Forks](https://img.shields.io/github/forks/ardalanamini/node-kutt.svg?style=social&label=Fork)](https://github.com/ardalanamini/node-kutt)
 
 ## Table of Contents <!-- omit in toc -->
 
