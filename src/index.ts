@@ -188,4 +188,4 @@ class Kutt {
   }
 }
 
-export default Kutt;
+export = Kutt;
