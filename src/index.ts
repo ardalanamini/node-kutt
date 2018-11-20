@@ -84,7 +84,7 @@ class Kutt {
    */
   public static setDomain = (domain?: string) => CONFIG.DOMAIN = domain;
 
-  protected _config = CONFIG;
+  protected _config = { ...CONFIG };
 
   protected _request(method: string, path: string, callback: Kutt.Callback<any>): void;
   protected _request(method: string, path: string, data?: object): Promise<any>;
@@ -106,7 +106,7 @@ class Kutt {
     });
 
     if (!callback) {
-      return new Promise((resolve, rejects) => request.then(response => resolve(response.data)).catch(rejects));
+      return request.then(response => response.data);
     }
 
     request
