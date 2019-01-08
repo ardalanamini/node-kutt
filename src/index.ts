@@ -84,7 +84,7 @@ class Kutt {
    */
   public static setDomain = (domain?: string) => CONFIG.DOMAIN = domain;
 
-  protected _config = { ...CONFIG };
+  protected _config = Object.assign({}, CONFIG);
 
   protected _request(method: string, path: string, callback: Kutt.Callback<any>): void;
   protected _request(method: string, path: string, data?: object): Promise<any>;
@@ -95,19 +95,19 @@ class Kutt {
       data = undefined;
     }
 
+    const { API, KEY } = this._config;
+
     const request = axios({
       method,
       data,
-      baseURL: this._config.API,
+      baseURL: `${API}/api/url`,
       url: path,
       headers: {
-        "X-API-Key": this._config.KEY,
+        "X-API-Key": KEY,
       },
     });
 
-    if (!callback) {
-      return request.then(response => response.data);
-    }
+    if (!callback) return request.then(response => response.data);
 
     request
       .then(response => (callback as any)(null, response.data))
@@ -147,7 +147,7 @@ class Kutt {
   public list(): Promise<Kutt.ListResult>;
   public list(callback: Kutt.Callback<Kutt.ListResult>): void;
   public list(callback?: Kutt.Callback<Kutt.ListResult>) {
-    return this._request("get", "/api/url/geturls", callback as any) as any;
+    return this._request("get", "/geturls", callback as any) as any;
   }
 
   /**
@@ -156,7 +156,7 @@ class Kutt {
   public submit(data: Kutt.NewUrl): Promise<Kutt.Url>;
   public submit(data: Kutt.NewUrl, callback: Kutt.Callback<Kutt.Url>): void;
   public submit(data: Kutt.NewUrl, callback?: Kutt.Callback<Kutt.Url>) {
-    return this._request("post", "/api/url/submit", data, callback as any) as any;
+    return this._request("post", "/submit", data, callback as any) as any;
   }
 
   /**
@@ -167,7 +167,7 @@ class Kutt {
   public delete(id: string, callback?: Kutt.Callback<Kutt.Url>) {
     return this._request(
       "post",
-      "/api/url/deleteurl",
+      "/deleteurl",
       {
         id,
         domain: this._config.DOMAIN,
@@ -184,7 +184,7 @@ class Kutt {
   public stats(id: string, callback?: Kutt.Callback<Kutt.StatResult>) {
     const domain = this._config.DOMAIN;
 
-    return this._request("get", `/api/url/stats?id=${id}${domain ? `&domain=${domain}` : ""}`, callback as any) as any;
+    return this._request("get", `/stats?id=${id}${domain ? `&domain=${domain}` : ""}`, callback as any) as any;
   }
 }
 
