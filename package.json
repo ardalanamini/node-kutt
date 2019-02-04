@@ -1,8 +1,8 @@
 {
   "name": "kutt",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node.js client for Kutt.it url shortener",
-  "author": "Ardalan Amini <ardalanamini22@gmail.com> [https://github.com/ardalanamini]",
+  "author": "Ardalan Amini <ardalanamini22@gmail.com> [https://ardalanamini.com]",
   "license": "MIT",
   "homepage": "https://kutt.it",
   "repository": {
@@ -23,14 +23,15 @@
     "lint": "tslint -p tsconfig.json -c tslint.json --exclude '**/*.d.ts'",
     "prepublishOnly": "npm run lint && npm run build"
   },
-  "dependencies": {
+  "peerDependencies": {
     "axios": "^0.18.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
-    "@types/node": "^10.12.18",
-    "tslint": "^5.12.0",
+    "@types/node": "^10.12.21",
+    "axios": "^0.18.0",
+    "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.2.2"
+    "typescript": "^3.3.1"
   }
 }
