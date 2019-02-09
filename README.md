@@ -26,10 +26,12 @@ Node.js client for Kutt.it url shortener
     - [setAPI](#setapi)
     - [setKey](#setkey)
     - [setDomain](#setdomain)
+    - [setTimeout](#settimeout)
   - [Instance](#instance)
     - [setAPI](#setapi-1)
     - [setKey](#setkey-1)
     - [setDomain](#setdomain-1)
+    - [setTimeout](#settimeout-1)
     - [list](#list)
     - [submit](#submit)
     - [delete](#delete)
@@ -79,7 +81,15 @@ Kutt.setKey(key: string): string;
 Set global custom domain
 
 ```typescript
-Kutt.setDomain(domain: string): string;
+Kutt.setDomain(domain?: string): string;
+```
+
+#### setTimeout
+
+Set global timeout
+
+```typescript
+Kutt.setTimeout(timeout: number): timeout;
 ```
 
 ### Instance
@@ -109,7 +119,15 @@ kutt.setKey(key: string): this;
 Set instance's custom domain
 
 ```typescript
-kutt.setDomain(domain: string): this;
+kutt.setDomain(domain?: string): this;
+```
+
+#### setTimeout
+
+Set instance's timeout
+
+```typescript
+kutt.setTimeout(timeout: number): this;
 ```
 
 #### list

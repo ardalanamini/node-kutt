@@ -4,6 +4,7 @@ const CONFIG = {
   API: "https://kutt.it",
   KEY: "",
   DOMAIN: undefined as string | undefined,
+  TIMEOUT: 1E4, // 10 seconds by default
 };
 
 namespace Kutt {
@@ -84,6 +85,11 @@ class Kutt {
    */
   public static setDomain = (domain?: string) => CONFIG.DOMAIN = domain;
 
+  /**
+   * Sets global timeout
+   */
+  public static setTimeout = (timeout: number) => CONFIG.TIMEOUT = timeout;
+
   protected _config = Object.assign({}, CONFIG);
 
   protected _request(method: string, path: string, callback: Kutt.Callback<any>): void;
@@ -95,13 +101,14 @@ class Kutt {
       data = undefined;
     }
 
-    const { API, KEY } = this._config;
+    const { API, KEY, TIMEOUT } = this._config;
 
     const request = axios({
       method,
       data,
       baseURL: `${API}/api/url`,
       url: path,
+      timeout: TIMEOUT,
       headers: {
         "X-API-Key": KEY,
       },
@@ -137,6 +144,15 @@ class Kutt {
    */
   public setDomain(domain?: string) {
     this._config.DOMAIN = domain;
+
+    return this;
+  }
+
+  /**
+   * Sets instance's timeout
+   */
+  public setTimeout(timeout: number) {
+    this._config.TIMEOUT = timeout;
 
     return this;
   }
