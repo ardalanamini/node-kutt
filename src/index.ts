@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const GET = "get";
+const POST = "post";
+
 const CONFIG = {
   API: "https://kutt.it",
   KEY: "",
   DOMAIN: undefined as string | undefined,
-  TIMEOUT: 1E4, // 10 seconds by default
+  TIMEOUT: 1e4, // 10 seconds by default
 };
 
 namespace Kutt {
@@ -30,10 +33,10 @@ namespace Kutt {
   }
 
   export interface Stats {
-    browser: Array<{ name: string, value: number }>;
-    os: Array<{ name: string, value: number }>;
-    country: Array<{ name: string, value: number }>;
-    referrer: Array<{ name: string, value: number }>;
+    browser: Array<{ name: string; value: number }>;
+    os: Array<{ name: string; value: number }>;
+    country: Array<{ name: string; value: number }>;
+    referrer: Array<{ name: string; value: number }>;
   }
 
   export interface StatResult {
@@ -44,12 +47,30 @@ namespace Kutt {
     lastDay: {
       stats: Stats;
       views: [
-        number, number, number, number,
-        number, number, number, number,
-        number, number, number, number,
-        number, number, number, number,
-        number, number, number, number,
-        number, number, number, number
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number
       ];
     };
     lastWeek: {
@@ -73,29 +94,43 @@ class Kutt {
   /**
    * Sets global API address
    */
-  public static setAPI = (api: string) => CONFIG.API = api;
+  public static setAPI = (api: string) => (CONFIG.API = api);
 
   /**
    * Sets global API key
    */
-  public static setKey = (key: string) => CONFIG.KEY = key;
+  public static setKey = (key: string) => (CONFIG.KEY = key);
 
   /**
    * Sets global custom domain
    */
-  public static setDomain = (domain?: string) => CONFIG.DOMAIN = domain;
+  public static setDomain = (domain?: string) => (CONFIG.DOMAIN = domain);
 
   /**
    * Sets global timeout
    */
-  public static setTimeout = (timeout: number) => CONFIG.TIMEOUT = timeout;
+  public static setTimeout = (timeout: number) => (CONFIG.TIMEOUT = timeout);
 
   protected _config = Object.assign({}, CONFIG);
 
-  protected _request(method: string, path: string, callback: Kutt.Callback<any>): void;
-  protected _request(method: string, path: string, data?: object): Promise<any>;
-  protected _request(method: string, path: string, data: object, callback: Kutt.Callback<any>): void;
-  protected _request(method: string, path: string, data?: object | Kutt.Callback<any>, callback?: Kutt.Callback<any>) {
+  protected _request(
+    method: string,
+    url: string,
+    callback: Kutt.Callback<any>,
+  ): void;
+  protected _request(method: string, url: string, data?: object): Promise<any>;
+  protected _request(
+    method: string,
+    url: string,
+    data: object,
+    callback: Kutt.Callback<any>,
+  ): void;
+  protected _request(
+    method: string,
+    url: string,
+    data?: object | Kutt.Callback<any>,
+    callback?: Kutt.Callback<any>,
+  ) {
     if (typeof data === "function") {
       callback = data as Kutt.Callback<any>;
       data = undefined;
@@ -106,8 +141,8 @@ class Kutt {
     const request = axios({
       method,
       data,
+      url,
       baseURL: `${API}/api/url`,
-      url: path,
       timeout: TIMEOUT,
       headers: {
         "X-API-Key": KEY,
@@ -163,7 +198,7 @@ class Kutt {
   public list(): Promise<Kutt.ListResult>;
   public list(callback: Kutt.Callback<Kutt.ListResult>): void;
   public list(callback?: Kutt.Callback<Kutt.ListResult>) {
-    return this._request("get", "/geturls", callback as any) as any;
+    return this._request(GET, "/geturls", callback as any) as any;
   }
 
   /**
@@ -172,7 +207,7 @@ class Kutt {
   public submit(data: Kutt.NewUrl): Promise<Kutt.Url>;
   public submit(data: Kutt.NewUrl, callback: Kutt.Callback<Kutt.Url>): void;
   public submit(data: Kutt.NewUrl, callback?: Kutt.Callback<Kutt.Url>) {
-    return this._request("post", "/submit", data, callback as any) as any;
+    return this._request(POST, "/submit", data, callback as any) as any;
   }
 
   /**
@@ -182,7 +217,7 @@ class Kutt {
   public delete(id: string, callback: Kutt.Callback<Kutt.Url>): void;
   public delete(id: string, callback?: Kutt.Callback<Kutt.Url>) {
     return this._request(
-      "post",
+      POST,
       "/deleteurl",
       {
         id,
@@ -200,7 +235,11 @@ class Kutt {
   public stats(id: string, callback?: Kutt.Callback<Kutt.StatResult>) {
     const domain = this._config.DOMAIN;
 
-    return this._request("get", `/stats?id=${id}${domain ? `&domain=${domain}` : ""}`, callback as any) as any;
+    return this._request(
+      GET,
+      `/stats?id=${id}${domain ? `&domain=${domain}` : ""}`,
+      callback as any,
+    ) as any;
   }
 }
 

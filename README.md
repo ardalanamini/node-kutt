@@ -1,6 +1,6 @@
 # Kutt <!-- omit in toc -->
 
-Node.js client for Kutt.it url shortener
+Node.js & browser client for Kutt.it url shortener
 
 [![Npm Version](https://img.shields.io/npm/v/kutt.svg)](https://www.npmjs.com/package/kutt)
 [![TypeScript Version](https://img.shields.io/npm/types/kutt.svg)](https://www.typescriptlang.org)
@@ -172,7 +172,7 @@ We use [SemVer](http://semver.org) for versioning. For the versions available, s
 
 ## Authors
 
-- **Ardalan Amini** - *Owner/Developer* - [@ardalanamini](https://github.com/ardalanamini)
+- **Ardalan Amini** - *Core Maintainer* - [@ardalanamini](https://github.com/ardalanamini)
 
 See also the list of [contributors](https://github.com/ardalanamini/kutt/contributors) who participated in this project.
 
