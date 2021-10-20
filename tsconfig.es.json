@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "tsconfig.es.tsbuildinfo",
+    "target": "ESNext",
+    "module": "ESNext",
+    "outDir": "./es"
+  }
+}

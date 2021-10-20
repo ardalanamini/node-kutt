@@ -1,0 +1,131 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    name: Test
+
+    timeout-minutes: 20
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node-version:
+          - 14
+          - 16
+
+    env:
+      OS: ${{ matrix.os }}
+      NODE_VERSION: ${{ matrix.node-version }}
+      RELEASE: ${{ github.ref }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build for CommonJS
+        run: npm run build
+
+      - name: Build for ECMAScript
+        run: npm run build:es
+
+  release:
+    name: Create Release
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Changelog
+        id: changelog
+        uses: ardalanamini/auto-changelog@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+
+  publish-npm:
+    name: Publish to NPM
+
+    permissions:
+      contents: read
+      packages: write
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - release
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - run: npm run build:hybrid
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-gpr:
+    name: Publish to GitHub
+
+    permissions:
+      contents: read
+      packages: write
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - release
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://npm.pkg.github.com
+          scope: '@ardalanamini'
+
+      - run: sed -i 's/"name":\ "kutt"/"name":\ "@ardalanamini\/kutt"/g' package.json package-lock.json
+
+      - run: npm ci
+
+      - run: npm run build:hybrid
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

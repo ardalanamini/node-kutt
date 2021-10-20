@@ -60,4 +60,11 @@ typings/
 # next.js build output
 .next
 
-dist
+# IDE
+.idea/
+.vscode/
+
+# Build
+*.tsbuildinfo
+cjs/
+es/

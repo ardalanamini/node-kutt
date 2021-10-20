@@ -1,95 +1,86 @@
-# Kutt <!-- omit in toc -->
+# Kutt
 
-Node.js & browser client for Kutt.it url shortener
+Node.js & browser (TypeScript) client for [Kutt][KUTT_URL] url shortener.
 
-[![Npm Version](https://img.shields.io/npm/v/kutt.svg)](https://www.npmjs.com/package/kutt)
-[![TypeScript Version](https://img.shields.io/npm/types/kutt.svg)](https://www.typescriptlang.org)
-[![Package Quality](https://npm.packagequality.com/shield/kutt.svg)](https://packagequality.com/#?package=kutt)
-[![Npm Total Downloads](https://img.shields.io/npm/dt/kutt.svg)](https://www.npmjs.com/package/kutt)
-[![Npm Monthly Downloads](https://img.shields.io/npm/dm/kutt.svg)](https://www.npmjs.com/package/kutt)
-[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/kutt.svg)](https://www.npmjs.com/package/kutt)
-[![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/kutt.svg)](https://www.npmjs.com/package/kutt)
-[![Open Issues](https://img.shields.io/github/issues-raw/ardalanamini/node-kutt.svg)](https://github.com/ardalanamini/node-kutt/issues?q=is%3Aopen+is%3Aissue)
-[![Closed Issues](https://img.shields.io/github/issues-closed-raw/ardalanamini/node-kutt.svg)](https://github.com/ardalanamini/node-kutt/issues?q=is%3Aissue+is%3Aclosed)
-[![Known Vulnerabilities](https://snyk.io/test/github/ardalanamini/node-kutt/badge.svg?targetFile=package.json)](https://snyk.io/test/github/ardalanamini/node-kutt?targetFile=package.json)
-[![Dependencies Status](https://david-dm.org/ardalanamini/node-kutt.svg)](https://david-dm.org/ardalanamini/node-kutt)
-[![Pull Requests](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/ardalanamini/node-kutt/pulls)
-[![License](https://img.shields.io/github/license/ardalanamini/node-kutt.svg)](https://github.com/ardalanamini/node-kutt/blob/master/LICENSE)
-[![Github Stars](https://img.shields.io/github/stars/ardalanamini/node-kutt.svg?style=social&label=Stars)](https://github.com/ardalanamini/node-kutt)
-[![Github Forks](https://img.shields.io/github/forks/ardalanamini/node-kutt.svg?style=social&label=Fork)](https://github.com/ardalanamini/node-kutt)
+[![NPM Version][NPM_BADGE]][NPM_URL]
+[![NPM Monthly Downloads][NPM_MONTHLY_DOWNLOADS_BADGE]][NPM_MONTHLY_DOWNLOADS_URL]
+[![NPM Total Downloads][NPM_TOTAL_DOWNLOADS_BADGE]][NPM_TOTAL_DOWNLOADS_URL]
+[![NPM Bundle Size (minified)][BUNDLE_BADGE]][BUNDLE_URL]
+[![NPM Bundle Size (minified + gzip)][BUNDLE_GZIP_BADGE]][BUNDLE_GZIP_URL]
+[![Known Vulnerabilities][VULNERABILITIES_BADGE]][VULNERABILITIES_URL]
+[![Pull Requests][PRS_BADGE]][PRS_URL]
+[![License][LICENSE_BADGE]][LICENSE_URL]
+[![Github Stars][STARS_BADGE]][STARS_URL]
+[![Github Forks][FORKS_BADGE]][FORKS_URL]
 
-## Table of Contents <!-- omit in toc -->
+## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Static](#static)
-    - [setAPI](#setapi)
-    - [setKey](#setkey)
-    - [setDomain](#setdomain)
-    - [setTimeout](#settimeout)
+  - [CommonJS](#commonjs)
+  - [ECMAScript](#ecmascript)
+  - [Default Config](#default-config)
   - [Instance](#instance)
-    - [setAPI](#setapi-1)
-    - [setKey](#setkey-1)
-    - [setDomain](#setdomain-1)
-    - [setTimeout](#settimeout-1)
-    - [list](#list)
-    - [submit](#submit)
-    - [delete](#delete)
-    - [stats](#stats)
+  - [Instance Config](#instance-config)
+  - [Domains](#domains)
+  - [Health](#health)
+  - [Links](#links)
+  - [Users](#users)
 - [Versioning](#versioning)
 - [Authors](#authors)
 - [License](#license)
-- [Support](#support)
 
 ## Installation
 
-`npm i kutt`
+```shell
+npm i kutt
+```
 
 ## Usage
 
-```typescript
-// es5
-const Kutt = require("kutt");
+### CommonJS
 
-// es6
+```typescript
+const Kutt = require("kutt").default;
+```
+
+or
+
+```typescript
+const { Kutt } = require("kutt");
+```
+
+### ECMAScript
+
+```typescript
 import Kutt from "kutt";
-
-// es6 & typescript
-import * as Kutt from "kutt";
 ```
 
-### Static
-
-#### setAPI
-
-Set global API address
+or
 
 ```typescript
-Kutt.setAPI(api_address: string): string;
+import { Kutt } from "kutt";
 ```
 
-#### setKey
+### Default Config
 
-Set global API key
+#### Get
 
 ```typescript
-Kutt.setKey(key: string): string;
+const api: string = Kutt.get("api");
+
+const key: string = Kutt.get("key");
+
+const timeout: number = Kutt.get("timeout");
 ```
 
-#### setDomain
-
-Set global custom domain
+#### Set
 
 ```typescript
-Kutt.setDomain(domain?: string): string;
-```
-
-#### setTimeout
-
-Set global timeout
-
-```typescript
-Kutt.setTimeout(timeout: number): timeout;
+Kutt
+  .set("api", "https://kutt.it/api/v2") // API base url (Default value)
+  .set("key", "") // API key (Default value)
+  .set("timeout", 1e4); // Request timeout (Default value)
 ```
 
 ### Instance
@@ -98,92 +89,211 @@ Kutt.setTimeout(timeout: number): timeout;
 const kutt = new Kutt();
 ```
 
-#### setAPI
+### Instance Config
 
-Set instance's API address
+Override the default config only for the instance.
+
+#### Get
 
 ```typescript
-kutt.setAPI(api_address: string): this;
+const api: string = kutt.get("api");
+
+const key: string = kutt.get("key");
+
+const timeout: number = kutt.get("timeout");
 ```
 
-#### setKey
-
-Set instance's API key
+#### Set
 
 ```typescript
-kutt.setKey(key: string): this;
+kutt
+  .set("api", "https://kutt.it/api/v2") // API base url
+  .set("key", "") // API key
+  .set("timeout", 1e4); // Request timeout
 ```
 
-#### setDomain
-
-Set instance's custom domain
+### Domains
 
 ```typescript
-kutt.setDomain(domain?: string): this;
+const domains = kutt.domains();
 ```
 
-#### setTimeout
+#### Create
 
-Set instance's timeout
+Create a domain.
 
 ```typescript
-kutt.setTimeout(timeout: number): this;
+const domain = await domains.create({
+  address: "string",
+  homepage: "string",
+});
 ```
 
-#### list
+#### Delete
 
-Retrieve the short urls
+Delete a domain.
 
 ```typescript
-kutt.list(): Promise<Kutt.ListResult>;
-kutt.list(callback: Kutt.Callback<Kutt.ListResult>): void;
+const message = await domains.remove(domain.id);
 ```
 
-#### submit
-
-Create a new short url
+### Health
 
 ```typescript
-kutt.submit(data: Kutt.NewUrl): Promise<Kutt.Url>;
-kutt.submit(data: Kutt.NewUrl, callback: Kutt.Callback<Kutt.Url>): void;
+const health = kutt.health();
 ```
 
-#### delete
+#### Check
 
-Remove the short url
+Check API health.
 
 ```typescript
-kutt.delete(id: string): Promise<Kutt.Url>;
-kutt.delete(id: string, callback: Kutt.Callback<Kutt.Url>): void;
+const isHealthy = await health.check();
 ```
 
-#### stats
-
-Remove the short url
+### Links
 
 ```typescript
-kutt.stats(id: string): Promise<Kutt.StatResult>;
-kutt.stats(id: string, callback: Kutt.Callback<Kutt.StatResult>): void;
+const links = kutt.links();
+```
+
+#### List
+
+Get list of links.
+
+```typescript
+const result = await links.list();
+```
+
+You can also pass in pagination params.
+
+```typescript
+const result = await links.list({
+  skip: 0, // Default value
+  limit: 10, // Default value
+  all: 10, // Default value
+});
+```
+
+#### Create
+
+Create a short link.
+
+```typescript
+const link = await links.create({
+  target: "string",
+  description: "string",
+  expire_in: "2 minutes/hours/days",
+  password: "string",
+  customurl: "string",
+  reuse: false,
+  domain: "string",
+});
+```
+
+#### Stats
+
+Get link stats.
+
+```typescript
+const stats = await links.stats(link.id);
+```
+
+#### Update
+
+Update a link.
+
+```typescript
+const updatedLink = await links.update(link.id, {
+  target: "string",
+  address: "string",
+  description: "string",
+  expire_in: "2 minutes/hours/days",
+});
+```
+
+#### Delete
+
+Delete a link.
+
+```typescript
+const message = await links.remove(link.id);
+```
+
+### Users
+
+```typescript
+const users = kutt.users();
+```
+
+#### Info
+
+Get user info.
+
+```typescript
+const info = await users.info();
 ```
 
 ## Versioning
 
-We use [SemVer](http://semver.org) for versioning. For the versions available, see the [tags on this repository](https://github.com/ardalanamini/kutt/tags).
+We use [SemVer][SEMVER_URL] for versioning. For the versions available, see
+the [releases on this repository][RELEASES_URL].
 
 ## Authors
 
 - **Ardalan Amini** - *Core Maintainer* - [@ardalanamini](https://github.com/ardalanamini)
 
-See also the list of [contributors](https://github.com/ardalanamini/kutt/contributors) who participated in this project.
+See also the list of [contributors][CONTRIBUTORS_URL] who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE][LICENSE_URL] file for details
 
-## Support
 
-If my work helps you, please consider
+[NPM_BADGE]: https://img.shields.io/npm/v/kutt.svg
 
-[![Become A Patron](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/ardalanamini)
+[NPM_URL]: https://www.npmjs.com/package/kutt
 
-[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ardalanamini)
+[NPM_MONTHLY_DOWNLOADS_BADGE]: https://img.shields.io/npm/dm/kutt.svg
+
+[NPM_MONTHLY_DOWNLOADS_URL]: https://www.npmjs.com/package/kutt
+
+[NPM_TOTAL_DOWNLOADS_BADGE]: https://img.shields.io/npm/dt/kutt.svg
+
+[NPM_TOTAL_DOWNLOADS_URL]: https://www.npmjs.com/package/kutt
+
+[BUNDLE_BADGE]: https://img.shields.io/bundlephobia/min/kutt.svg
+
+[BUNDLE_URL]: https://www.npmjs.com/package/kutt
+
+[BUNDLE_GZIP_BADGE]: https://img.shields.io/bundlephobia/minzip/kutt.svg
+
+[BUNDLE_GZIP_URL]: https://www.npmjs.com/package/kutt
+
+[VULNERABILITIES_BADGE]: https://snyk.io/test/github/ardalanamini/node-kutt/badge.svg?targetFile=package.json
+
+[VULNERABILITIES_URL]: https://snyk.io/test/github/ardalanamini/node-kutt?targetFile=package.json
+
+[PRS_BADGE]: https://img.shields.io/badge/PRs-Welcome-brightgreen.svg
+
+[PRS_URL]: https://github.com/ardalanamini/node-kutt/pulls
+
+[LICENSE_BADGE]: https://img.shields.io/github/license/ardalanamini/node-kutt.svg
+
+[LICENSE_URL]: https://github.com/ardalanamini/node-kutt/blob/master/LICENSE
+
+[STARS_BADGE]: https://img.shields.io/github/stars/ardalanamini/node-kutt.svg?style=social&label=Stars
+
+[STARS_URL]: https://github.com/ardalanamini/node-kutt
+
+[FORKS_BADGE]: https://img.shields.io/github/forks/ardalanamini/node-kutt.svg?style=social&label=Fork
+
+[FORKS_URL]: https://github.com/ardalanamini/node-kutt
+
+[KUTT_URL]: https://kutt.it
+
+[SEMVER_URL]: http://semver.org
+
+[RELEASES_URL]: https://github.com/ardalanamini/node-kutt/releases
+
+[CONTRIBUTORS_URL]: https://github.com/ardalanamini/node-kutt/contributors

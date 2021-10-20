@@ -1,7 +1,7 @@
 {
   "name": "kutt",
-  "version": "1.2.0",
-  "description": "Node.js & browser client for Kutt.it url shortener",
+  "version": "2.0.0",
+  "description": "Node.js & browser (TypeScript) client for Kutt url shortener",
   "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com)",
   "license": "MIT",
   "homepage": "https://kutt.it",
@@ -17,21 +17,34 @@
     "url",
     "shortener"
   ],
-  "main": "dist/index.js",
+  "sideEffects": false,
+  "main": "cjs/index.js",
+  "types": "cjs/index.d.ts",
+  "module": "es/index.js",
+  "exports": {
+    ".": {
+      "import": "./es/index.js",
+      "default": "./cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsc",
-    "lint": "tslint -p tsconfig.json -c tslint.json --exclude '**/*.d.ts'",
-    "prepublishOnly": "npm run lint && npm run build"
+    "build:watch": "npm run build -- --watch",
+    "build:es": "tsc -p tsconfig.es.json",
+    "build:hybrid": "scripts/pre-build.sh && npm run build && npm run build:es && scripts/post-build.sh",
+    "lint": "eslint src",
+    "lint:fix": "npm run lint -- --fix"
   },
   "peerDependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.23.0"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/node": "^11.13.2",
-    "axios": "^0.18.0",
-    "tslint": "^5.15.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.4.2"
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "axios": "^0.23.0",
+    "eslint": "^8.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "typescript": "^4.4.4"
   }
 }
