@@ -3,6 +3,7 @@
 Node.js & browser (TypeScript) client for [Kutt][KUTT_URL] url shortener.
 
 [![NPM Version][NPM_BADGE]][NPM_URL]
+[![Test][TEST_BADGE]][TEST_URL]
 [![NPM Monthly Downloads][NPM_MONTHLY_DOWNLOADS_BADGE]][NPM_MONTHLY_DOWNLOADS_URL]
 [![NPM Total Downloads][NPM_TOTAL_DOWNLOADS_BADGE]][NPM_TOTAL_DOWNLOADS_URL]
 [![NPM Bundle Size (minified)][BUNDLE_BADGE]][BUNDLE_URL]
@@ -253,6 +254,10 @@ This project is licensed under the MIT License - see the [LICENSE][LICENSE_URL] 
 [NPM_BADGE]: https://img.shields.io/npm/v/kutt.svg
 
 [NPM_URL]: https://www.npmjs.com/package/kutt
+
+[TEST_BADGE]: https://github.com/ardalanamini/node-kutt/actions/workflows/test.yml/badge.svg
+
+[TEST_URL]: https://github.com/ardalanamini/node-kutt/actions/workflows/test.yml
 
 [NPM_MONTHLY_DOWNLOADS_BADGE]: https://img.shields.io/npm/dm/kutt.svg
 
