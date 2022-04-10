@@ -1,0 +1,26 @@
+# Basic set up for package managers
+
+version: 2
+
+updates:
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "deps(CI)"
+    reviewers:
+      - ardalanamini
+
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps(Dev)"
+    reviewers:
+      - ardalanamini
