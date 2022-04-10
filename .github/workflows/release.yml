@@ -29,7 +29,7 @@ jobs:
       RELEASE: ${{ github.ref }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -57,7 +57,7 @@ jobs:
       - test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Changelog
         id: changelog
@@ -84,7 +84,7 @@ jobs:
       - release
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v2
         with:
@@ -112,7 +112,7 @@ jobs:
       - release
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v2
         with:
