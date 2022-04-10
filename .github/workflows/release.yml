@@ -61,7 +61,7 @@ jobs:
 
       - name: Changelog
         id: changelog
-        uses: ardalanamini/auto-changelog@v1
+        uses: ardalanamini/auto-changelog@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
