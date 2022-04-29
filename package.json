@@ -37,12 +37,12 @@
     "lint:fix": "npm run lint -- --fix"
   },
   "peerDependencies": {
-    "axios": "^0.26.1"
+    "axios": "^0.27.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "eslint": "^8.13.0",
     "eslint-plugin-import": "^2.26.0",
     "typescript": "^4.6.3"
