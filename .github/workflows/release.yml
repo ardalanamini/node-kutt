@@ -35,6 +35,7 @@ jobs:
         with:
           body: |
             ${{ steps.changelog.outputs.changelog }}
+          prerelease: ${{ steps.changelog.outputs.prerelease }}
 
   publish-npm:
     name: Publish to NPM
