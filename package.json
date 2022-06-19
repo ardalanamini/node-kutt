@@ -23,8 +23,14 @@
   "module": "es/index.js",
   "exports": {
     ".": {
-      "import": "./es/index.js",
-      "default": "./cjs/index.js"
+      "import": {
+        "types": "./es/index.d.ts",
+        "default": "./es/index.js"
+      },
+      "default": {
+        "types": "./cjs/index.d.ts",
+        "default": "./cjs/index.js"
+      }
     },
     "./package.json": "./package.json"
   },
