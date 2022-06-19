@@ -3,37 +3,13 @@ env:
   es2021: true
   node: true
 extends:
-  - eslint:recommended
-  - plugin:@typescript-eslint/recommended
-parser: '@typescript-eslint/parser'
+  - noir/all
 parserOptions:
-  ecmaVersion: 12
+  project: ./tsconfig.json
+  ecmaVersion: latest
   sourceType: module
-plugins:
-  - '@typescript-eslint'
-  - import
 rules:
-  indent: off
-  "@typescript-eslint/indent":
-    - error
-    - 2
-    - SwitchCase: 1
-  quotes: off
-  "@typescript-eslint/quotes":
-    - error
-    - double
-    - avoidEscape: true
-  semi: off
-  "@typescript-eslint/semi":
-    - error
-    - always
-  comma-dangle: off
-  "@typescript-eslint/comma-dangle":
-    - error
-    - always-multiline
-  max-len:
-    - error
-    - 120
+  import/no-unresolved: off
   import/extensions:
     - error
     - always

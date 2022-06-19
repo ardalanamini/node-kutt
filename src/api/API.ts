@@ -1,10 +1,11 @@
+import { ConfigI } from "../config.js";
 import axios, { AxiosInstance } from "axios";
-import type { ConfigI } from "../config.js";
 
 /**
  *
  */
 export default abstract class API {
+
   /**
    *
    * @protected
@@ -21,7 +22,7 @@ export default abstract class API {
    *
    * @param config
    */
-  constructor(config: ConfigI) {
+  public constructor(config: ConfigI) {
     const { api, key, timeout } = config;
 
     this.axios = axios.create({
@@ -39,6 +40,7 @@ export default abstract class API {
    * @protected
    */
   protected url(url = ""): string {
-    return `${this.prefix}${url}`;
+    return `${ this.prefix }${ url }`;
   }
+
 }
