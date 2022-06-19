@@ -1,7 +1,9 @@
 const CONFIG: ConfigI = {
   api: "https://kutt.it/api/v2",
   key: "",
-  timeout: 1e4, // 10 seconds by default
+
+  // 10 seconds by default
+  timeout: 1e4,
 };
 
 export default CONFIG;

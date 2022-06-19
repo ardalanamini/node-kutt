@@ -5,6 +5,7 @@ import API from "./API.js";
  * @see {@link https://docs.kutt.it/#tag/domains}
  */
 export default class Domain extends API {
+
   /**
    *
    * @protected
@@ -16,7 +17,7 @@ export default class Domain extends API {
    *
    * @param domain
    */
-  public create(domain: NewDomainI): Promise<DomainI> {
+  public async create(domain: NewDomainI): Promise<DomainI> {
     return this.axios
       .post<DomainI>(this.url(), domain)
       .then(({ data }) => data);
@@ -27,11 +28,12 @@ export default class Domain extends API {
    *
    * @param id
    */
-  public remove(id: string): Promise<string> {
+  public async remove(id: string): Promise<string> {
     return this.axios
-      .delete<{ message: string }>(this.url(`/${id}`))
+      .delete<{ message: string }>(this.url(`/${ id }`))
       .then(({ data }) => data.message);
   }
+
 }
 
 export interface NewDomainI {
@@ -40,10 +42,10 @@ export interface NewDomainI {
 }
 
 export interface DomainI {
-  id: string;
   address: string;
   banned: boolean;
   created_at: string;
-  updated_at: string;
   homepage?: string;
+  id: string;
+  updated_at: string;
 }

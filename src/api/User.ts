@@ -1,11 +1,12 @@
 import API from "./API.js";
-import type { DomainI } from "./Domain.js";
+import { DomainI } from "./Domain.js";
 
 /**
  *
  * @see {@link https://docs.kutt.it/#tag/users}
  */
 export default class User extends API {
+
   /**
    *
    * @protected
@@ -15,15 +16,17 @@ export default class User extends API {
   /**
    * Gets user info.
    */
-  public info(): Promise<UserI> {
+  public async info(): Promise<UserI> {
+    // TODO: Dates?
     return this.axios
       .get<UserI>(this.url())
-      .then(({ data }) => data); // TODO: Dates?
+      .then(({ data }) => data);
   }
+
 }
 
 export interface UserI {
   apikey: string;
-  email: string;
   domains: DomainI[];
+  email: string;
 }

@@ -1,11 +1,27 @@
-import { Domain, Health, Link, User } from "./api/index.js";
 import CONFIG, { ConfigI } from "./config.js";
+import { Domain, Health, Link, User } from "./api/index.js";
 
 /**
  *
  * @see {@link https://docs.kutt.it}
  */
 export default class Kutt {
+
+  /**
+   *
+   * @private
+   */
+  #config: ConfigI = { ...CONFIG };
+
+  /**
+   * Gets default/global config.
+   *
+   * @param config
+   */
+  public static get<Config extends keyof ConfigI>(config: Config): ConfigI[Config] {
+    return CONFIG[config];
+  }
+
   /**
    * Sets default/global config.
    *
@@ -19,30 +35,12 @@ export default class Kutt {
   }
 
   /**
-   * Gets default/global config.
+   * Domains API.
    *
-   * @param config
+   * @see {@link https://docs.kutt.it/#tag/domains}
    */
-  public static get<Config extends keyof ConfigI>(config: Config): ConfigI[Config] {
-    return CONFIG[config];
-  }
-
-  /**
-   *
-   * @private
-   */
-  #config: ConfigI = { ...CONFIG };
-
-  /**
-   * Sets instance config.
-   *
-   * @param config
-   * @param value
-   */
-  public set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): this {
-    this.#config[config] = value;
-
-    return this;
+  public domains(): Domain {
+    return new Domain(this.#config);
   }
 
   /**
@@ -52,15 +50,6 @@ export default class Kutt {
    */
   public get<Config extends keyof ConfigI>(config: Config): ConfigI[Config] {
     return this.#config[config];
-  }
-
-  /**
-   * Domains API.
-   *
-   * @see {@link https://docs.kutt.it/#tag/domains}
-   */
-  public domains(): Domain {
-    return new Domain(this.#config);
   }
 
   /**
@@ -82,6 +71,18 @@ export default class Kutt {
   }
 
   /**
+   * Sets instance config.
+   *
+   * @param config
+   * @param value
+   */
+  public set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): this {
+    this.#config[config] = value;
+
+    return this;
+  }
+
+  /**
    * Users API.
    *
    * @see {@link https://docs.kutt.it/#tag/users}
@@ -89,4 +90,5 @@ export default class Kutt {
   public users(): User {
     return new User(this.#config);
   }
+
 }
