@@ -5,12 +5,16 @@ name: Test
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 1 * *"
   push:
     branches:
       - master
   pull_request:
   workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
   test:
@@ -31,6 +35,7 @@ jobs:
           - 15
           - 16
           - 17
+          - 18
 
     env:
       OS: ${{ matrix.os }}

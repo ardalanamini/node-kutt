@@ -12,7 +12,9 @@ jobs:
   release:
     name: Create Release
 
-    concurrency: github-release
+    concurrency:
+      group: github-release-${{ github.ref_name }}
+      cancel-in-progress: true
 
     environment:
       name: release
@@ -40,10 +42,12 @@ jobs:
   publish-npm:
     name: Publish to NPM
 
-    concurrency: npm-release
+    concurrency:
+      group: npm-release-${{ github.ref_name }}
+      cancel-in-progress: true
 
     environment:
-      name: release
+      name: npm
       url: https://www.npmjs.com/package/kutt
 
     runs-on: ubuntu-latest
@@ -70,10 +74,12 @@ jobs:
   publish-gpr:
     name: Publish to GitHub Packages
 
-    concurrency: gpr-release
+    concurrency:
+      group: gpr-release-${{ github.ref_name }}
+      cancel-in-progress: true
 
     environment:
-      name: release
+      name: gpr
       url: https://github.com/${{ github.repository }}/packages
 
     permissions:
