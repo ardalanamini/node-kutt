@@ -69,3 +69,6 @@ jobs:
 
       - name: Build for ECMAScript
         run: npm run build:es
+
+      - name: Generate code documents
+        run: npm run docs
