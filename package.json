@@ -18,6 +18,9 @@
     "shortener"
   ],
   "sideEffects": false,
+  "engines": {
+    "node": ">= 16.0.0"
+  },
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",
   "module": "es/index.js",
