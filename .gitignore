@@ -68,3 +68,6 @@ typings/
 *.tsbuildinfo
 cjs/
 es/
+
+# Documents
+docs/

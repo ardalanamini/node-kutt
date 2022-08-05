@@ -1,0 +1,10 @@
+{
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "entryPointStrategy": "resolve",
+  "out": "docs",
+  "includeVersion": true,
+  "searchInComments": true,
+  "githubPages": true
+}

@@ -43,7 +43,8 @@
     "build:es": "tsc -p tsconfig.es.json",
     "build:hybrid": "scripts/pre-build.sh && npm run build && npm run build:es && scripts/post-build.sh",
     "lint": "eslint src",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "docs": "typedoc"
   },
   "peerDependencies": {
     "axios": "^0.27.2"
