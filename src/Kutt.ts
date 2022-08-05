@@ -1,5 +1,5 @@
-import CONFIG, { ConfigI } from "./config.js";
 import { Domain, Health, Link, User } from "./api/index.js";
+import CONFIG, { ConfigI } from "./config.js";
 
 /**
  *

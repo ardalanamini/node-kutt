@@ -2,15 +2,10 @@ env:
   browser: true
   es2021: true
   node: true
-extends:
-  - noir/all
+extends: noir/all
 parserOptions:
   project: ./tsconfig.json
   ecmaVersion: latest
   sourceType: module
 rules:
-  import/no-unresolved: off
-  import/extensions:
-    - error
-    - always
-    - ignorePackages: true
+  import/no-relative-parent-imports: off

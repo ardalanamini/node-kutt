@@ -1,5 +1,5 @@
-import { ConfigI } from "../config.js";
 import axios, { AxiosInstance } from "axios";
+import { ConfigI } from "../config.js";
 
 /**
  *
