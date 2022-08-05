@@ -5,6 +5,9 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
 
+env:
+  NODE_VERSION: 16
+
 jobs:
   test:
     uses: ./.github/workflows/test.yml
@@ -12,25 +15,25 @@ jobs:
   release:
     name: Create Release
 
-    concurrency:
-      group: github-release-${{ github.ref_name }}
-      cancel-in-progress: true
+    needs:
+      - test
 
     environment:
       name: release
       url: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}
 
-    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-release-${{ github.ref_name }}
+      cancel-in-progress: true
 
-    needs:
-      - test
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Changelog
-        uses: ardalanamini/auto-changelog@v3
         id: changelog
+        uses: ardalanamini/auto-changelog@v3
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -42,70 +45,78 @@ jobs:
   publish-npm:
     name: Publish to NPM
 
-    concurrency:
-      group: npm-release-${{ github.ref_name }}
-      cancel-in-progress: true
+    needs:
+      - release
 
     environment:
       name: npm
       url: https://www.npmjs.com/package/kutt
 
-    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-npm-${{ github.ref_name }}
+      cancel-in-progress: true
 
-    needs:
-      - release
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: https://registry.npmjs.org/
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm run build:hybrid
+      - name: Build the project
+        run: npm run build:hybrid
 
-      - run: npm publish
+      - name: Publish the package
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-gpr:
     name: Publish to GitHub Packages
 
-    concurrency:
-      group: gpr-release-${{ github.ref_name }}
-      cancel-in-progress: true
-
-    environment:
-      name: gpr
-      url: https://github.com/${{ github.repository }}/packages
+    needs:
+      - release
 
     permissions:
       contents: read
       packages: write
 
-    runs-on: ubuntu-latest
+    environment:
+      name: gpr
+      url: https://github.com/${{ github.repository }}/packages
 
-    needs:
-      - release
+    concurrency:
+      group: ${{ github.workflow }}-gpr-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: https://npm.pkg.github.com/
           scope: '@ardalanamini'
 
       - run: sed -i 's/"name":\ "kutt"/"name":\ "@ardalanamini\/kutt"/g' package.json package-lock.json
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm run build:hybrid
+      - name: Build the project
+        run: npm run build:hybrid
 
-      - run: npm publish
+      - name: Publish the package
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
