@@ -44,16 +44,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Cache
+      - name: Set up node modules cache
+        id: node-modules-cache
         uses: actions/cache@v3
         with:
           path: '**/node_modules'
-          key: node-modules-${{ matrix.os }}-${{ github.ref_name }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          key: node-modules-${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            node-modules-${{ matrix.os }}-${{ github.ref_name }}-${{ matrix.node-version }}
-            node-modules-${{ matrix.os }}-master-${{ matrix.node-version }}
-            node-modules-${{ matrix.os }}-${{ github.ref_name }}-
-            node-modules-${{ matrix.os }}-master-
+            node-modules-${{ matrix.os }}-${{ matrix.node-version }}-
+            node-modules-${{ matrix.os }}-
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -61,6 +60,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
+        if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
         run: npm i --no-fund
 
       - name: Check code styles
