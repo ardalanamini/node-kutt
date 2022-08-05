@@ -3,6 +3,8 @@ import API from "./API.js";
 /**
  *
  * @see {@link https://docs.kutt.it/#tag/domains}
+ * @example
+ * const domains = new Domain(config);
  */
 export default class Domain extends API {
 
@@ -16,6 +18,11 @@ export default class Domain extends API {
    * Creates a domain.
    *
    * @param domain
+   * @example
+   * const domain = await domains.create({
+   *   address: "string",
+   *   homepage: "string",
+   * });
    */
   public async create(domain: NewDomainI): Promise<DomainI> {
     return this.axios
@@ -27,6 +34,8 @@ export default class Domain extends API {
    * Deletes a domain.
    *
    * @param id
+   * @example
+   * const message = await domains.remove(domain.id);
    */
   public async remove(id: string): Promise<string> {
     return this.axios
