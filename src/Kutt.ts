@@ -4,6 +4,8 @@ import CONFIG, { ConfigI } from "./config.js";
 /**
  *
  * @see {@link https://docs.kutt.it}
+ * @example
+ * const kutt = new Kutt();
  */
 export default class Kutt {
 
@@ -17,6 +19,8 @@ export default class Kutt {
    * Gets default/global config.
    *
    * @param config
+   * @example
+   * const api = Kutt.get("api");
    */
   public static get<Config extends keyof ConfigI>(config: Config): ConfigI[Config] {
     return CONFIG[config];
@@ -27,6 +31,11 @@ export default class Kutt {
    *
    * @param config
    * @param value
+   * @example
+   * Kutt.set("api", , "https://kutt.it/api/v2");
+   * @example
+   * Kutt.set("api", , "https://kutt.it/api/v2")
+   *   .set("timeout", 1e4);
    */
   public static set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): typeof Kutt {
     CONFIG[config] = value;
@@ -38,6 +47,8 @@ export default class Kutt {
    * Domains API.
    *
    * @see {@link https://docs.kutt.it/#tag/domains}
+   * @example
+   * const domains = kutt.domains();
    */
   public domains(): Domain {
     return new Domain(this.#config);
@@ -47,6 +58,8 @@ export default class Kutt {
    * Gets instance config.
    *
    * @param config
+   * @example
+   * const api = kutt.get("api");
    */
   public get<Config extends keyof ConfigI>(config: Config): ConfigI[Config] {
     return this.#config[config];
@@ -56,6 +69,8 @@ export default class Kutt {
    * Health API.
    *
    * @see {@link https://docs.kutt.it/#tag/health}
+   * @example
+   * const health = kutt.health();
    */
   public health(): Health {
     return new Health(this.#config);
@@ -65,6 +80,8 @@ export default class Kutt {
    * Links API.
    *
    * @see {@link https://docs.kutt.it/#tag/links}
+   * @example
+   * const links = kutt.links();
    */
   public links(): Link {
     return new Link(this.#config);
@@ -75,6 +92,11 @@ export default class Kutt {
    *
    * @param config
    * @param value
+   * @example
+   * kutt = kutt.set("api", , "https://kutt.it/api/v2");
+   * @example
+   * kutt = kutt.set("api", , "https://kutt.it/api/v2")
+   *   .set("timeout", 1e4);
    */
   public set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): this {
     this.#config[config] = value;
@@ -86,6 +108,8 @@ export default class Kutt {
    * Users API.
    *
    * @see {@link https://docs.kutt.it/#tag/users}
+   * @example
+   * const users = kutt.users();
    */
   public users(): User {
     return new User(this.#config);

@@ -3,6 +3,8 @@ import API from "./API.js";
 /**
  *
  * @see {@link https://docs.kutt.it/#tag/links}
+ * @example
+ * const links = new Link(config);
  */
 export default class Link extends API {
 
@@ -16,6 +18,16 @@ export default class Link extends API {
    * Creates a short link.
    *
    * @param link
+   * @example
+   * const link = await links.create({
+   *   target: "string",
+   *   description: "string",
+   *   expire_in: "2 minutes/hours/days",
+   *   password: "string",
+   *   customurl: "string",
+   *   reuse: false,
+   *   domain: "string",
+   * });
    */
   public async create(link: NewLinkI): Promise<LinkI> {
     return this.axios
@@ -30,6 +42,14 @@ export default class Link extends API {
    * @param [params.skip=0]
    * @param [params.limit=10]
    * @param [params.all=false]
+   * @example
+   * const list = await links.list();
+   * @example
+   * const list = await links.list({
+   *   skip:  0,
+   *   limit: 10,
+   *   all:   10,
+   * });
    */
   public async list(params: ListLinkParamsI = {}): Promise<ListLinkResultI> {
     const { skip = 0, limit = 10, all = false } = params;
@@ -48,6 +68,8 @@ export default class Link extends API {
    * Deletes a link.
    *
    * @param id
+   * @example
+   * const message = await links.remove(link.id);
    */
   public async remove(id: string): Promise<string> {
     return this.axios
@@ -59,6 +81,8 @@ export default class Link extends API {
    * Gets link stats.
    *
    * @param id
+   * @example
+   * const stats = await links.stats(link.id);
    */
   public async stats(id: string): Promise<LinkStatsI> {
     return this.axios
@@ -71,6 +95,13 @@ export default class Link extends API {
    *
    * @param id
    * @param link
+   * @example
+   * const updatedLink = await links.update(link.id, {
+   *   target: "string",
+   *   address: "string",
+   *   description: "string",
+   *   expire_in: "2 minutes/hours/days",
+   * });
    */
   public async update(id: string, link: UpdateLinkI): Promise<LinkI> {
     return this.axios

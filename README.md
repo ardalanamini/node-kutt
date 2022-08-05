@@ -269,11 +269,11 @@ This project is licensed under the MIT License - see the [LICENSE][LICENSE_URL] 
 
 [BUNDLE_BADGE]: https://img.shields.io/bundlephobia/min/kutt.svg
 
-[BUNDLE_URL]: https://www.npmjs.com/package/kutt
+[BUNDLE_URL]: https://bundlephobia.com/package/kutt
 
 [BUNDLE_GZIP_BADGE]: https://img.shields.io/bundlephobia/minzip/kutt.svg
 
-[BUNDLE_GZIP_URL]: https://www.npmjs.com/package/kutt
+[BUNDLE_GZIP_URL]: https://bundlephobia.com/package/kutt
 
 [VULNERABILITIES_BADGE]: https://snyk.io/test/github/ardalanamini/node-kutt/badge.svg?targetFile=package.json
 

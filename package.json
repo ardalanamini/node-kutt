@@ -43,7 +43,8 @@
     "build:es": "tsc -p tsconfig.es.json",
     "build:hybrid": "scripts/pre-build.sh && npm run build && npm run build:es && scripts/post-build.sh",
     "lint": "eslint src",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "docs": "typedoc"
   },
   "peerDependencies": {
     "axios": "^0.27.2"
@@ -56,6 +57,7 @@
     "eslint-config-noir": "^1.2.1",
     "eslint-import-resolver-typescript": "^3.4.0",
     "eslint-plugin-import": "^2.26.0",
+    "typedoc": "^0.23.10",
     "typescript": "^4.7.4"
   }
 }
