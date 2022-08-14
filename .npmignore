@@ -1,0 +1,16 @@
+# IDE
+.idea/
+.vscode/
+
+# Sources
+src/
+
+# Build
+.github/
+scripts/
+build/*.tsbuildinfo
+.gitattributes
+.eslintrc.yml
+typedoc.json
+tsconfig.json
+tsconfig.esm.json

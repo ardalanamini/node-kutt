@@ -71,18 +71,60 @@ jobs:
         run: npm ci
 
       - name: Build the project
-        run: npm run build:hybrid
+        run: npm run build
 
       - name: Publish the package
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+  publish-gpr:
+    name: Publish to GitHub Packages
+
+    needs:
+      - release
+
+    permissions:
+      contents: read
+      packages: write
+
+    environment:
+      name: gpr
+      url: https://github.com/${{ github.repository }}/packages
+
+    concurrency:
+      group: ${{ github.workflow }}-gpr-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://npm.pkg.github.com/
+          scope: '@ardalanamini'
+
+      - run: sed -i 's/"name":\ "kutt"/"name":\ "@ardalanamini\/kutt"/g' package.json package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Publish the package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+
   publish-documents:
     name: Publish Documents
 
     needs:
-      - release
       - publish-npm
 
     permissions:
@@ -125,46 +167,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: github-pages-deployment
         uses: actions/deploy-pages@v1
-
-  publish-gpr:
-    name: Publish to GitHub Packages
-
-    needs:
-      - release
-
-    permissions:
-      contents: read
-      packages: write
-
-    environment:
-      name: gpr
-      url: https://github.com/${{ github.repository }}/packages
-
-    concurrency:
-      group: ${{ github.workflow }}-gpr-${{ github.ref_name }}
-      cancel-in-progress: true
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          registry-url: https://npm.pkg.github.com/
-          scope: '@ardalanamini'
-
-      - run: sed -i 's/"name":\ "kutt"/"name":\ "@ardalanamini\/kutt"/g' package.json package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build the project
-        run: npm run build:hybrid
-
-      - name: Publish the package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
