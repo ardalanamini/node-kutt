@@ -36,7 +36,11 @@ export default abstract class API extends Base {
       .then(async (r) => {
         clearTimeout(timeoutId);
 
-        return r.json();
+        if (!r.ok) throw new Error("Network response was not OK");
+
+        if (r.headers.get("Content-Type") === "application/json") return r.json();
+
+        return r.text();
       })
       .catch((error) => {
         clearTimeout(timeoutId);
