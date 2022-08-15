@@ -1,8 +1,8 @@
-export { default, default as Kutt } from "./Kutt.js";
-export { API, Domain, Health, Link, User } from "./api/index.js";
+export { default, default as Kutt } from "#src/Kutt";
+export { API, Domain, Health, Link, User } from "#src/api/index";
 
-export type { ConfigI } from "./config.js";
-export type { DomainI, NewDomainI } from "./api/Domain.js";
+export type { ConfigI } from "#src/config";
+export type { DomainI, NewDomainI } from "#src/api/Domain";
 export type {
   LinkI,
   NewLinkI,
@@ -13,5 +13,5 @@ export type {
   LinkDurationStatsI,
   LinkStatDetailsI,
   LinkStatDetailI,
-} from "./api/Link.js";
-export type { UserI } from "./api/User.js";
+} from "#src/api/Link";
+export type { UserI } from "#src/api/User";

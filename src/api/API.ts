@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { ConfigI } from "../config.js";
+import { ConfigI } from "#src/config";
 
 /**
  *

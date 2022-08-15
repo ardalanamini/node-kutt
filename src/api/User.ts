@@ -1,4 +1,4 @@
-import API from "./API.js";
+import API from "#src/API";
 import { DomainI } from "./Domain.js";
 
 /**

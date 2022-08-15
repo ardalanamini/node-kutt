@@ -37,6 +37,28 @@
     },
     "./package.json": "./package.json"
   },
+  "imports": {
+    "#src/API": {
+      "import": {
+        "types": "./build/esm/api/API.d.ts",
+        "default": "./build/esm/api/API.js"
+      },
+      "default": {
+        "types": "./build/cjs/api/API.d.ts",
+        "default": "./build/cjs/api/API.js"
+      }
+    },
+    "#src/*": {
+      "import": {
+        "types": "./build/esm/*.d.ts",
+        "default": "./build/esm/*.js"
+      },
+      "default": {
+        "types": "./build/cjs/*.d.ts",
+        "default": "./build/cjs/*.js"
+      }
+    }
+  },
   "scripts": {
     "build": "scripts/pre-build.sh && npm run build:cjs && npm run build:esm && scripts/post-build.sh",
     "build:cjs": "tsc",
