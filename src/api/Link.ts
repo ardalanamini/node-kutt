@@ -29,7 +29,7 @@ export default class Link extends API {
    *   domain: "string",
    * });
    */
-  public async create(link: NewLinkI): Promise<LinkI> {
+  public async create(link: NewLinkT): Promise<LinkI> {
     return this.post<LinkI>(link);
   }
 
@@ -53,11 +53,9 @@ export default class Link extends API {
     const { skip = 0, limit = 10, all = false } = params;
 
     return this.get<ListLinkResultI>({
-      params: {
-        skip,
-        limit,
-        all,
-      },
+      skip,
+      limit,
+      all,
     });
   }
 
@@ -97,7 +95,7 @@ export default class Link extends API {
    *   expire_in: "2 minutes/hours/days",
    * });
    */
-  public async update(id: string, link: UpdateLinkI): Promise<LinkI> {
+  public async update(id: string, link: UpdateLinkT): Promise<LinkI> {
     return this.patch<LinkI>(link, `/${ id }`);
   }
 
@@ -129,7 +127,8 @@ export interface LinkI {
   visit_count: number;
 }
 
-export interface NewLinkI {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type NewLinkT = {
   customurl?: string;
   description?: string;
   domain?: string;
@@ -137,14 +136,15 @@ export interface NewLinkI {
   password?: string;
   reuse?: boolean;
   target: string;
-}
+};
 
-export interface UpdateLinkI {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type UpdateLinkT = {
   address: string;
   description?: string;
   expire_in?: string;
   target: string;
-}
+};
 
 export interface LinkStatsI {
   address: string;

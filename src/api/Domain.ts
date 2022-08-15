@@ -24,7 +24,7 @@ export default class Domain extends API {
    *   homepage: "string",
    * });
    */
-  public async create(domain: NewDomainI): Promise<DomainI> {
+  public async create(domain: NewDomainT): Promise<DomainI> {
     return this.post(domain);
   }
 
@@ -42,10 +42,11 @@ export default class Domain extends API {
 
 }
 
-export interface NewDomainI {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type NewDomainT = {
   address: string;
   homepage?: string;
-}
+};
 
 export interface DomainI {
   address: string;

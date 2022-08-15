@@ -1,16 +1,16 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { ConfigI } from "#src/config";
+
+export enum METHOD {
+  GET = "GET",
+  POST = "POST",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
+}
 
 /**
  *
  */
 export default abstract class API {
-
-  /**
-   *
-   * @private
-   */
-  #axios: AxiosInstance;
 
   /**
    *
@@ -22,36 +22,7 @@ export default abstract class API {
    *
    * @param config
    */
-  public constructor(config: ConfigI) {
-    const { api, key, timeout } = config;
-
-    this.#axios = axios.create({
-      baseURL: api,
-      headers: {
-        "X-API-Key": key,
-      },
-      timeout,
-    });
-  }
-
-  /**
-   *
-   * @param res
-   * @private
-   */
-  // eslint-disable-next-line class-methods-use-this
-  async #res<Response = unknown>(res: Promise<AxiosResponse<Response>>): Promise<Response> {
-    return res.then(({ data }) => data);
-  }
-
-  /**
-   *
-   * @param url
-   * @private
-   */
-  #url(url = ""): string {
-    return `${ this.prefix }${ url }`;
-  }
+  protected constructor(protected readonly config: ConfigI) { }
 
   /**
    *
@@ -59,7 +30,10 @@ export default abstract class API {
    * @protected
    */
   protected async delete<Response = unknown>(url?: string): Promise<Response> {
-    return this.#res<Response>(this.#axios.delete(this.#url(url)));
+    return this.request<Response>({
+      method: METHOD.DELETE,
+      url,
+    });
   }
 
   /**
@@ -67,26 +41,26 @@ export default abstract class API {
    * @param url
    * @protected
    */
-  protected async get<Response = unknown>(url?: string): Promise<Response>;
+  protected get<Response = unknown>(url?: string): Promise<Response>;
 
   /**
    *
-   * @param config
+   * @param params
    * @param url
    * @protected
    */
-  protected async get<Response = unknown>(config: AxiosRequestConfig, url?: string): Promise<Response>;
-  protected async get<Response = unknown>(
-    config?: AxiosRequestConfig | string,
-    url?: string,
-  ): Promise<Response> {
-    if (typeof config === "string") {
-      url = config;
+  protected get<Response = unknown>(params: ParamsT, url?: string): Promise<Response>;
+  protected async get<Response = unknown>(params?: ParamsT | string, url?: string): Promise<Response> {
+    if (typeof params === "string") {
+      url = params;
       // eslint-disable-next-line no-undefined
-      config = undefined;
+      params = undefined;
     }
 
-    return this.#res<Response>(this.#axios.get(this.#url(url), config));
+    return this.request<Response>({
+      url,
+      params,
+    });
   }
 
   /**
@@ -95,11 +69,12 @@ export default abstract class API {
    * @param url
    * @protected
    */
-  protected async patch<Response = unknown, Data = unknown>(
-    data: Data,
-    url?: string,
-  ): Promise<Response> {
-    return this.#res<Response>(this.#axios.patch(this.#url(url), data));
+  protected async patch<Response = unknown>(data: BodyT, url?: string): Promise<Response> {
+    return this.request<Response>({
+      method: METHOD.PATCH,
+      body  : data,
+      url,
+    });
   }
 
   /**
@@ -108,8 +83,41 @@ export default abstract class API {
    * @param url
    * @protected
    */
-  protected async post<Response = unknown, Data = unknown>(data: Data, url?: string): Promise<Response> {
-    return this.#res<Response>(this.#axios.post(this.#url(url), data));
+  protected async post<Response = unknown>(data: BodyT, url?: string): Promise<Response> {
+    return this.request<Response>({
+      method: METHOD.POST,
+      body  : data,
+      url,
+    });
   }
+
+  /**
+   *
+   * @param url
+   * @protected
+   */
+  protected url(url: string): string {
+    const { config: { api }, prefix } = this;
+
+    return `${ api }${ prefix }${ url }`;
+  }
+
+  /**
+   *
+   * @param request
+   * @protected
+   */
+  protected abstract request<Response = unknown>(request: RequestI): Promise<Response>;
 
 }
+
+export interface RequestI {
+  body?: BodyT;
+  method?: METHOD;
+  params?: ParamsT;
+  url?: string;
+}
+
+export type BodyT = Record<string, unknown>;
+
+export type ParamsT = Record<string, boolean | number | string>;
