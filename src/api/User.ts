@@ -1,4 +1,4 @@
-import API from "./API.js";
+import API from "#src/API";
 import { DomainI } from "./Domain.js";
 
 /**
@@ -22,9 +22,7 @@ export default class User extends API {
    */
   public async info(): Promise<UserI> {
     // TODO: Dates?
-    return this.axios
-      .get<UserI>(this.url())
-      .then(({ data }) => data);
+    return this.get<UserI>();
   }
 
 }

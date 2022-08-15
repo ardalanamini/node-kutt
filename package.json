@@ -37,6 +37,40 @@
     },
     "./package.json": "./package.json"
   },
+  "imports": {
+    "#src/API": {
+      "browser": {
+        "import": {
+          "types": "./build/esm/api/API.browser.d.ts",
+          "default": "./build/esm/api/API.browser.js"
+        },
+        "default": {
+          "types": "./build/cjs/api/API.browser.d.ts",
+          "default": "./build/cjs/api/API.browser.js"
+        }
+      },
+      "default": {
+        "import": {
+          "types": "./build/esm/api/API.node.d.ts",
+          "default": "./build/esm/api/API.node.js"
+        },
+        "default": {
+          "types": "./build/cjs/api/API.node.d.ts",
+          "default": "./build/cjs/api/API.node.js"
+        }
+      }
+    },
+    "#src/*": {
+      "import": {
+        "types": "./build/esm/*.d.ts",
+        "default": "./build/esm/*.js"
+      },
+      "default": {
+        "types": "./build/cjs/*.d.ts",
+        "default": "./build/cjs/*.js"
+      }
+    }
+  },
   "scripts": {
     "build": "scripts/pre-build.sh && npm run build:cjs && npm run build:esm && scripts/post-build.sh",
     "build:cjs": "tsc",
@@ -47,13 +81,10 @@
     "lint:fix": "npm run lint -- --fix",
     "docs": "typedoc"
   },
-  "peerDependencies": {
-    "axios": "^0.27.2"
-  },
   "devDependencies": {
+    "@types/node": "^18.7.4",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
-    "axios": "^0.27.2",
     "eslint": "^8.21.0",
     "eslint-config-noir": "^1.2.1",
     "eslint-import-resolver-typescript": "^3.4.0",

@@ -1,4 +1,4 @@
-import API from "./API.js";
+import API from "#src/API";
 
 /**
  *
@@ -29,10 +29,8 @@ export default class Link extends API {
    *   domain: "string",
    * });
    */
-  public async create(link: NewLinkI): Promise<LinkI> {
-    return this.axios
-      .post<LinkI>(this.url(), link)
-      .then(({ data }) => data);
+  public async create(link: NewLinkT): Promise<LinkI> {
+    return this.post<LinkI>(link);
   }
 
   /**
@@ -54,14 +52,11 @@ export default class Link extends API {
   public async list(params: ListLinkParamsI = {}): Promise<ListLinkResultI> {
     const { skip = 0, limit = 10, all = false } = params;
 
-    return this.axios.get<ListLinkResultI>(this.url(), {
-      params: {
-        skip,
-        limit,
-        all,
-      },
-    })
-      .then(({ data }) => data);
+    return this.get<ListLinkResultI>({
+      skip,
+      limit,
+      all,
+    });
   }
 
   /**
@@ -72,9 +67,8 @@ export default class Link extends API {
    * const message = await links.remove(link.id);
    */
   public async remove(id: string): Promise<string> {
-    return this.axios
-      .delete<{ message: string }>(this.url(`/${ id }`))
-      .then(({ data }) => data.message);
+    return this.delete<{ message: string }>(`/${ id }`)
+      .then(data => data.message);
   }
 
   /**
@@ -85,9 +79,7 @@ export default class Link extends API {
    * const stats = await links.stats(link.id);
    */
   public async stats(id: string): Promise<LinkStatsI> {
-    return this.axios
-      .get<LinkStatsI>(this.url(`/${ id }/stats`))
-      .then(({ data }) => data);
+    return this.delete<LinkStatsI>(`/${ id }/stats`);
   }
 
   /**
@@ -103,10 +95,8 @@ export default class Link extends API {
    *   expire_in: "2 minutes/hours/days",
    * });
    */
-  public async update(id: string, link: UpdateLinkI): Promise<LinkI> {
-    return this.axios
-      .patch<LinkI>(this.url(`/${ id }`), link)
-      .then(({ data }) => data);
+  public async update(id: string, link: UpdateLinkT): Promise<LinkI> {
+    return this.patch<LinkI>(link, `/${ id }`);
   }
 
 }
@@ -137,7 +127,8 @@ export interface LinkI {
   visit_count: number;
 }
 
-export interface NewLinkI {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type NewLinkT = {
   customurl?: string;
   description?: string;
   domain?: string;
@@ -145,14 +136,15 @@ export interface NewLinkI {
   password?: string;
   reuse?: boolean;
   target: string;
-}
+};
 
-export interface UpdateLinkI {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type UpdateLinkT = {
   address: string;
   description?: string;
   expire_in?: string;
   target: string;
-}
+};
 
 export interface LinkStatsI {
   address: string;
