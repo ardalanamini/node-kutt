@@ -25,9 +25,7 @@ export default class Domain extends API {
    * });
    */
   public async create(domain: NewDomainI): Promise<DomainI> {
-    return this.axios
-      .post<DomainI>(this.url(), domain)
-      .then(({ data }) => data);
+    return this.post(domain);
   }
 
   /**
@@ -38,9 +36,8 @@ export default class Domain extends API {
    * const message = await domains.remove(domain.id);
    */
   public async remove(id: string): Promise<string> {
-    return this.axios
-      .delete<{ message: string }>(this.url(`/${ id }`))
-      .then(({ data }) => data.message);
+    return this.delete<{ message: string }>(`/${ id }`)
+      .then(data => data.message);
   }
 
 }

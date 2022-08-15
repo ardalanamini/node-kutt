@@ -20,7 +20,7 @@ export default class Health extends API {
    * const isHealthy = await health.check();
    */
   public async check(): Promise<boolean> {
-    return this.axios.get(this.url())
+    return this.get()
       .then(() => true)
       .catch(() => false);
   }

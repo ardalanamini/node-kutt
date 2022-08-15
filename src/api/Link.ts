@@ -30,9 +30,7 @@ export default class Link extends API {
    * });
    */
   public async create(link: NewLinkI): Promise<LinkI> {
-    return this.axios
-      .post<LinkI>(this.url(), link)
-      .then(({ data }) => data);
+    return this.post<LinkI>(link);
   }
 
   /**
@@ -54,14 +52,13 @@ export default class Link extends API {
   public async list(params: ListLinkParamsI = {}): Promise<ListLinkResultI> {
     const { skip = 0, limit = 10, all = false } = params;
 
-    return this.axios.get<ListLinkResultI>(this.url(), {
+    return this.get<ListLinkResultI>({
       params: {
         skip,
         limit,
         all,
       },
-    })
-      .then(({ data }) => data);
+    });
   }
 
   /**
@@ -72,9 +69,8 @@ export default class Link extends API {
    * const message = await links.remove(link.id);
    */
   public async remove(id: string): Promise<string> {
-    return this.axios
-      .delete<{ message: string }>(this.url(`/${ id }`))
-      .then(({ data }) => data.message);
+    return this.delete<{ message: string }>(`/${ id }`)
+      .then(data => data.message);
   }
 
   /**
@@ -85,9 +81,7 @@ export default class Link extends API {
    * const stats = await links.stats(link.id);
    */
   public async stats(id: string): Promise<LinkStatsI> {
-    return this.axios
-      .get<LinkStatsI>(this.url(`/${ id }/stats`))
-      .then(({ data }) => data);
+    return this.delete<LinkStatsI>(`/${ id }/stats`);
   }
 
   /**
@@ -104,9 +98,7 @@ export default class Link extends API {
    * });
    */
   public async update(id: string, link: UpdateLinkI): Promise<LinkI> {
-    return this.axios
-      .patch<LinkI>(this.url(`/${ id }`), link)
-      .then(({ data }) => data);
+    return this.patch<LinkI>(link, `/${ id }`);
   }
 
 }

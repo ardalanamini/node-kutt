@@ -22,9 +22,7 @@ export default class User extends API {
    */
   public async info(): Promise<UserI> {
     // TODO: Dates?
-    return this.axios
-      .get<UserI>(this.url())
-      .then(({ data }) => data);
+    return this.get<UserI>();
   }
 
 }
