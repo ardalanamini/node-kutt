@@ -81,14 +81,10 @@
     "lint:fix": "npm run lint -- --fix",
     "docs": "typedoc"
   },
-  "peerDependencies": {
-    "axios": "^0.27.2"
-  },
   "devDependencies": {
     "@types/node": "^18.7.4",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
-    "axios": "^0.27.2",
     "eslint": "^8.21.0",
     "eslint-config-noir": "^1.2.1",
     "eslint-import-resolver-typescript": "^3.4.0",
