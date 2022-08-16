@@ -21,7 +21,6 @@ export default class User extends API {
    * const info = await users.info();
    */
   public async info(): Promise<UserI> {
-    // TODO: Dates?
     return this.get<UserI>();
   }
 

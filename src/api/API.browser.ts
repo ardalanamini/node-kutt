@@ -1,3 +1,4 @@
+import { reviver } from "#src/utils";
 import Base, { METHOD, RequestI } from "./API.js";
 
 /**
@@ -38,9 +39,11 @@ export default abstract class API extends Base {
 
         if (!r.ok) throw new Error("Network response was not OK");
 
-        if (r.headers.get("Content-Type") === "application/json") return r.json();
+        const response = await r.text();
 
-        return r.text();
+        if (r.headers.get("Content-Type") === "application/json") return JSON.parse(response, reviver);
+
+        return response;
       })
       .catch((error) => {
         clearTimeout(timeoutId);

@@ -117,13 +117,13 @@ export interface ListLinkResultI {
 export interface LinkI {
   address: string;
   banned: boolean;
-  created_at: string;
+  created_at: Date;
   description: string;
   id: string;
   link: string;
   password: boolean;
   target: string;
-  updated_at: string;
+  updated_at: Date;
   visit_count: number;
 }
 
@@ -149,13 +149,13 @@ export type UpdateLinkT = {
 export interface LinkStatsI {
   address: string;
   banned: boolean;
-  created_at: string;
+  created_at: Date;
   id: string;
   link: string;
   password: boolean;
   target: string;
   updatedAt: string;
-  updated_at: string;
+  updated_at: Date;
   visit_count: number;
 }
 

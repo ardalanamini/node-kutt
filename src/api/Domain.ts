@@ -51,8 +51,8 @@ export type NewDomainT = {
 export interface DomainI {
   address: string;
   banned: boolean;
-  created_at: string;
+  created_at: Date;
   homepage?: string;
   id: string;
-  updated_at: string;
+  updated_at: Date;
 }

@@ -3,6 +3,7 @@ import { request as requestHTTPS } from "node:https";
 import { URLSearchParams } from "node:url";
 import Base, { METHOD, RequestI } from "#src/api/API";
 import { ConfigI } from "#src/config";
+import { reviver } from "#src/utils";
 
 /**
  *
@@ -75,7 +76,7 @@ export default abstract class API extends Base {
             .once("error", error => reject(error))
             .once("end", () => {
               try {
-                if (res.headers["Content-Type"] === "application/json") resolve(JSON.parse(rawData));
+                if (res.headers["Content-Type"] === "application/json") resolve(JSON.parse(rawData, reviver));
                 else resolve(rawData as never);
               } catch (error) {
                 reject(error);
