@@ -37,11 +37,18 @@ export default abstract class API extends Base {
       .then(async (r) => {
         clearTimeout(timeoutId);
 
-        if (!r.ok) throw new Error("Network response was not OK");
+        let response: any = await r.text();
 
-        const response = await r.text();
+        if (r.headers.get("Content-Type")?.startsWith("application/json")) response = JSON.parse(response, reviver);
 
-        if (r.headers.get("Content-Type") === "application/json") return JSON.parse(response, reviver);
+        if (!r.ok) {
+          throw new Error(response?.error ?? "Something went wrong", {
+            cause: {
+              data  : response,
+              status: r.status,
+            },
+          });
+        }
 
         return response;
       })

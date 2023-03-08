@@ -63,21 +63,28 @@ export default abstract class API extends Base {
         (res) => {
           res.setEncoding("utf8");
 
-          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-          if (!res.statusCode || res.statusCode < 200 || res.statusCode > 299) {
-            reject(new Error("Network response was not OK"));
-
-            return;
-          }
-
-          let rawData = "";
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          let rawData: any = "";
 
           res
             .once("error", error => reject(error))
             .once("end", () => {
               try {
-                if (res.headers["Content-Type"] === "application/json") resolve(JSON.parse(rawData, reviver));
-                else resolve(rawData as never);
+                if (res.headers["content-type"]?.startsWith("application/json")) rawData = JSON.parse(rawData, reviver);
+
+                // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+                if (!res.statusCode || res.statusCode < 200 || res.statusCode > 299) {
+                  reject(new Error(rawData?.error ?? "Something went wrong", {
+                    cause: {
+                      data  : rawData,
+                      status: res.statusCode,
+                    },
+                  }));
+
+                  return;
+                }
+
+                resolve(rawData);
               } catch (error) {
                 reject(error);
               }
