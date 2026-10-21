@@ -2,7 +2,7 @@ import API from "#src/API";
 
 /**
  *
- * @see {@link https://docs.kutt.it/#tag/domains}
+ * @see {@link https://docs.kutt.to/#tag/domains}
  * @example
  * const domains = new Domain(config);
  */

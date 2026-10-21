@@ -4,7 +4,7 @@
   "description": "Node.js & browser (TypeScript) client for Kutt url shortener",
   "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com)",
   "license": "MIT",
-  "homepage": "https://kutt.it",
+  "homepage": "https://kutt.to",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ardalanamini/node-kutt.git"

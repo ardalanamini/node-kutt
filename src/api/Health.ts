@@ -2,7 +2,7 @@ import API from "#src/API";
 
 /**
  *
- * @see {@link https://docs.kutt.it/#tag/health}
+ * @see {@link https://docs.kutt.to/#tag/health}
  * @example
  * const health = new Health(config);
  */

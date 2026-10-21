@@ -3,7 +3,7 @@ import { DomainI } from "./Domain.js";
 
 /**
  *
- * @see {@link https://docs.kutt.it/#tag/users}
+ * @see {@link https://docs.kutt.to/#tag/users}
  * @example
  * const users = new User(config);
  */

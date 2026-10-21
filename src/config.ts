@@ -1,5 +1,5 @@
 const CONFIG: ConfigI = {
-  api: "https://kutt.it/api/v2",
+  api: "https://kutt.to/api/v2",
   key: "",
 
   // 10 seconds by default

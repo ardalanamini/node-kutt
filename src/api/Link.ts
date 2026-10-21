@@ -2,7 +2,7 @@ import API from "#src/API";
 
 /**
  *
- * @see {@link https://docs.kutt.it/#tag/links}
+ * @see {@link https://docs.kutt.to/#tag/links}
  * @example
  * const links = new Link(config);
  */

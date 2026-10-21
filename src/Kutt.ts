@@ -3,7 +3,7 @@ import CONFIG, { ConfigI } from "#src/config";
 
 /**
  *
- * @see {@link https://docs.kutt.it}
+ * @see {@link https://docs.kutt.to}
  * @example
  * const kutt = new Kutt();
  */
@@ -32,9 +32,9 @@ export default class Kutt {
    * @param config
    * @param value
    * @example
-   * Kutt.set("api", , "https://kutt.it/api/v2");
+   * Kutt.set("api", , "https://kutt.to/api/v2");
    * @example
-   * Kutt.set("api", , "https://kutt.it/api/v2")
+   * Kutt.set("api", , "https://kutt.to/api/v2")
    *   .set("timeout", 1e4);
    */
   public static set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): typeof Kutt {
@@ -46,7 +46,7 @@ export default class Kutt {
   /**
    * Domains API.
    *
-   * @see {@link https://docs.kutt.it/#tag/domains}
+   * @see {@link https://docs.kutt.to/#tag/domains}
    * @example
    * const domains = kutt.domains();
    */
@@ -68,7 +68,7 @@ export default class Kutt {
   /**
    * Health API.
    *
-   * @see {@link https://docs.kutt.it/#tag/health}
+   * @see {@link https://docs.kutt.to/#tag/health}
    * @example
    * const health = kutt.health();
    */
@@ -79,7 +79,7 @@ export default class Kutt {
   /**
    * Links API.
    *
-   * @see {@link https://docs.kutt.it/#tag/links}
+   * @see {@link https://docs.kutt.to/#tag/links}
    * @example
    * const links = kutt.links();
    */
@@ -93,9 +93,9 @@ export default class Kutt {
    * @param config
    * @param value
    * @example
-   * kutt = kutt.set("api", , "https://kutt.it/api/v2");
+   * kutt = kutt.set("api", , "https://kutt.to/api/v2");
    * @example
-   * kutt = kutt.set("api", , "https://kutt.it/api/v2")
+   * kutt = kutt.set("api", , "https://kutt.to/api/v2")
    *   .set("timeout", 1e4);
    */
   public set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): this {
@@ -107,7 +107,7 @@ export default class Kutt {
   /**
    * Users API.
    *
-   * @see {@link https://docs.kutt.it/#tag/users}
+   * @see {@link https://docs.kutt.to/#tag/users}
    * @example
    * const users = kutt.users();
    */
