@@ -115,3 +115,31 @@ jobs:
 
       - name: Generate code documents
         run: pnpm document
+
+  knip:
+    name: Knip
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Check dead code/dependency
+        run: pnpm knip
