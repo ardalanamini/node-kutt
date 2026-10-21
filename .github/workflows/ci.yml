@@ -114,4 +114,4 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Generate code documents
-        run: pnpm docs
+        run: pnpm document

@@ -82,7 +82,7 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Generate code documents
-        run: pnpm docs
+        run: pnpm document
 
       - name: Setup Pages
         uses: actions/configure-pages@v6

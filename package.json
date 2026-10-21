@@ -80,7 +80,7 @@
     "build:esm:watch": "pnpm build:esm --watch",
     "lint": "eslint src",
     "lint:fix": "pnpm lint --fix",
-    "docs": "typedoc",
+    "document": "typedoc",
     "prepack": "pnpm build"
   },
   "type": "module",
