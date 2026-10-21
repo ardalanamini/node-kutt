@@ -1,0 +1,130 @@
+name: CD
+
+on:
+  push:
+    tags:
+      - v*[0-9].*[0-9].*[0-9]
+
+jobs:
+  npm:
+    name: Publish to NPM
+
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/kutt
+
+    concurrency:
+      group: ${{ github.workflow }}-npm-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    permissions:
+      contents: read
+      id-token: write
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          registry-url: https://registry.npmjs.org/
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Publish the package
+        run: pnpm publish --no-git-checks
+
+  document:
+    name: Publish Documents
+
+    needs:
+      - npm
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: documents
+      url: ${{ steps.github-pages-deployment.outputs.page_url }}
+
+    concurrency:
+      group: ${{ github.workflow }}-pages-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          registry-url: https://registry.npmjs.org/
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Generate code documents
+        run: pnpm docs
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: 'docs/'
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v5
+        id: github-pages-deployment
+
+  release:
+    name: Create Release
+
+    needs:
+      - npm
+
+    concurrency: github-release
+
+    environment:
+      name: release
+      url: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}
+
+    permissions:
+      contents: write
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Changelog
+        uses: ardalanamini/auto-changelog@v5
+        id: changelog
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        with:
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+          prerelease: ${{ steps.changelog.outputs.prerelease }}

@@ -72,15 +72,19 @@
     }
   },
   "scripts": {
-    "build": "scripts/pre-build.sh && npm run build:cjs && npm run build:esm && scripts/post-build.sh",
+    "typecheck": "tsc --noEmit",
+    "build": "scripts/pre-build.sh && pnpm build:cjs && pnpm build:esm && scripts/post-build.sh",
     "build:cjs": "tsc",
-    "build:cjs:watch": "npm run build:cjs -- --watch",
+    "build:cjs:watch": "pnpm build:cjs --watch",
     "build:esm": "tsc -p tsconfig.esm.json",
-    "build:esm:watch": "npm run build:esm -- --watch",
+    "build:esm:watch": "pnpm build:esm --watch",
     "lint": "eslint src",
-    "lint:fix": "npm run lint -- --fix",
-    "docs": "typedoc"
+    "lint:fix": "pnpm lint --fix",
+    "docs": "typedoc",
+    "prepack": "pnpm build"
   },
+  "type": "module",
+  "packageManager": "pnpm@12.14.0",
   "devDependencies": {
     "@types/node": "^18.11.0",
     "@typescript-eslint/eslint-plugin": "^5.40.0",

@@ -1,27 +1,34 @@
 version: 2
 
 updates:
-
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
+    cooldown:
+      default-days: 1
     directory: /
     schedule:
       interval: monthly
       day: monday
     commit-message:
-      prefix: deps(CI)
-    reviewers:
-      - ardalanamini
+      prefix: ci(deps)
+    labels:
+      - ci
+      - dependencies
+      - triage
 
   # Maintain dependencies for NPM
   - package-ecosystem: npm
+    cooldown:
+      default-days: 1
     directory: /
     schedule:
       interval: monthly
       day: monday
     versioning-strategy: increase
     commit-message:
-      prefix: deps
-      prefix-development: deps(Dev)
-    reviewers:
-      - ardalanamini
+      prefix: build(deps)
+      prefix-development: build(dev-deps)
+    labels:
+      - npm
+      - dependencies
+      - triage
