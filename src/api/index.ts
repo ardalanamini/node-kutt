@@ -1,16 +1,17 @@
-export { default as API, METHOD, type RequestI, type BodyT, type ParamsT } from "./API.js";
-export { default as Domain, type DomainI, type NewDomainT } from "./Domain.js";
-export { default as Health } from "./Health.js";
+// oxlint-disable no-duplicate-imports
+export { type BodyT, type ParametersT, type RequestI, METHOD, default as API } from "./api.js";
+export { type DomainI, type NewDomainT, default as Domain } from "./domain.js";
+export { default as Health } from "./health.js";
 export {
-  default as Link,
+  type LinkDurationStatsI,
   type LinkI,
+  type LinkStatDetailI,
+  type LinkStatDetailsI,
+  type LinkStatsI,
+  type ListLinkParametersI,
+  type ListLinkResultI,
   type NewLinkT,
   type UpdateLinkT,
-  type ListLinkParamsI,
-  type ListLinkResultI,
-  type LinkStatsI,
-  type LinkDurationStatsI,
-  type LinkStatDetailsI,
-  type LinkStatDetailI,
-} from "./Link.js";
-export { default as User, type UserI } from "./User.js";
+  default as Link,
+} from "./link.js";
+export { type UserI, default as User } from "./user.js";

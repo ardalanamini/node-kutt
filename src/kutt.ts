@@ -1,5 +1,5 @@
 import { Domain, Health, Link, User } from "#src/api/index";
-import CONFIG, { ConfigI } from "#src/config";
+import CONFIG, { type ConfigI } from "#src/config";
 
 /**
  *
@@ -32,9 +32,9 @@ export default class Kutt {
    * @param config
    * @param value
    * @example
-   * Kutt.set("api", , "https://kutt.to/api/v2");
+   * Kutt.set("api", "https://kutt.to/api/v2");
    * @example
-   * Kutt.set("api", , "https://kutt.to/api/v2")
+   * Kutt.set("api", "https://kutt.to/api/v2")
    *   .set("timeout", 1e4);
    */
   public static set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): typeof Kutt {

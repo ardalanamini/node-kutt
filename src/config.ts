@@ -10,6 +10,8 @@ export default CONFIG;
 
 export interface ConfigI {
   api: string;
+
   key: string;
+
   timeout: number;
 }

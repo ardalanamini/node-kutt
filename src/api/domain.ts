@@ -1,4 +1,4 @@
-import API from "./API.js";
+import API from "./api.js";
 
 /**
  *
@@ -36,7 +36,7 @@ export default class Domain extends API {
    * const message = await domains.remove(domain.id);
    */
   public async remove(id: string): Promise<string> {
-    return this.delete<{ message: string }>(`/${ id }`)
+    return this.delete<{ message: string; }>(`/${ id }`)
       .then(data => data.message);
   }
 
@@ -45,14 +45,20 @@ export default class Domain extends API {
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type NewDomainT = {
   address: string;
+
   homepage?: string;
 };
 
 export interface DomainI {
   address: string;
+
   banned: boolean;
+
   created_at: Date;
+
   homepage?: string;
+
   id: string;
+
   updated_at: Date;
 }

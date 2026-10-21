@@ -1,4 +1,4 @@
-import { ConfigI } from "#src/config";
+import type { ConfigI } from "#src/config";
 import { reviver } from "#src/utils";
 
 export enum METHOD {
@@ -23,7 +23,7 @@ export default abstract class API {
    *
    * @param config
    */
-  public constructor(protected readonly config: ConfigI) { }
+  public constructor(protected readonly config: ConfigI) {}
 
   /**
    *
@@ -46,21 +46,21 @@ export default abstract class API {
 
   /**
    *
-   * @param params
+   * @param parameters
    * @param url
    * @protected
    */
-  protected get<Response = unknown>(params: ParamsT, url?: string): Promise<Response>;
-  protected async get<Response = unknown>(params?: ParamsT | string, url?: string): Promise<Response> {
-    if (typeof params === "string") {
-      url = params;
+  protected get<Response = unknown>(parameters: ParametersT, url?: string): Promise<Response>;
+  protected async get<Response = unknown>(parameters?: ParametersT | string, url?: string): Promise<Response> {
+    if (typeof parameters === "string") {
+      url = parameters;
       // eslint-disable-next-line no-undefined
-      params = undefined;
+      parameters = undefined;
     }
 
     return this.request<Response>({
       url,
-      params,
+      params: parameters,
     });
   }
 
@@ -102,7 +102,7 @@ export default abstract class API {
     const { method = METHOD.GET, body, params } = request;
     let { url = "" } = request;
 
-    const abortController = (new AbortController);
+    const abortController = new AbortController();
 
     const init: RequestInit = {
       method,
@@ -115,6 +115,7 @@ export default abstract class API {
 
     if (body != null) init.body = JSON.stringify(body);
 
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     if (params != null) url += `?${ new URLSearchParams(params as Record<string, string>).toString() }`;
 
     const timeoutId = setTimeout(() => abortController.abort(), timeout);
@@ -123,6 +124,7 @@ export default abstract class API {
       .then(async (r) => {
         clearTimeout(timeoutId);
 
+        // oxlint-disable-next-line typescript/no-explicit-any
         let response: any = await r.text();
 
         if (r.headers.get("Content-Type")?.startsWith("application/json")) response = JSON.parse(response, reviver);
@@ -159,12 +161,15 @@ export default abstract class API {
 }
 
 export interface RequestI {
-  body?: BodyT;
-  method?: METHOD;
-  params?: ParamsT;
-  url?: string;
+  body?: BodyT | undefined;
+
+  method?: METHOD | undefined;
+
+  params?: ParametersT | undefined;
+
+  url?: string | undefined;
 }
 
 export type BodyT = Record<string, unknown>;
 
-export type ParamsT = Record<string, boolean | number | string>;
+export type ParametersT = Record<string, boolean | number | string>;

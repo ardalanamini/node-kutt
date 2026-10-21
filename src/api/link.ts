@@ -1,4 +1,4 @@
-import API from "./API.js";
+import API from "./api.js";
 
 /**
  *
@@ -37,9 +37,9 @@ export default class Link extends API {
    * Gets list of links.
    *
    * @param params
-   * @param [params.skip=0]
-   * @param [params.limit=10]
-   * @param [params.all=false]
+   * @param [parameters.skip=0]
+   * @param [parameters.limit=10]
+   * @param [parameters.all=false]
    * @example
    * const list = await links.list();
    * @example
@@ -49,8 +49,8 @@ export default class Link extends API {
    *   all:   10,
    * });
    */
-  public async list(params: ListLinkParamsI = {}): Promise<ListLinkResultI> {
-    const { skip = 0, limit = 10, all = false } = params;
+  public async list(parameters: ListLinkParametersI = {}): Promise<ListLinkResultI> {
+    const { skip = 0, limit = 10, all = false } = parameters;
 
     return this.get<ListLinkResultI>({
       skip,
@@ -67,7 +67,7 @@ export default class Link extends API {
    * const message = await links.remove(link.id);
    */
   public async remove(id: string): Promise<string> {
-    return this.delete<{ message: string }>(`/${ id }`)
+    return this.delete<{ message: string; }>(`/${ id }`)
       .then(data => data.message);
   }
 
@@ -79,7 +79,7 @@ export default class Link extends API {
    * const stats = await links.stats(link.id);
    */
   public async stats(id: string): Promise<LinkStatsI> {
-    return this.delete<LinkStatsI>(`/${ id }/stats`);
+    return this.get<LinkStatsI>(`/${ id }/stats`);
   }
 
   /**
@@ -101,77 +101,114 @@ export default class Link extends API {
 
 }
 
-export interface ListLinkParamsI {
+export interface ListLinkParametersI {
   all?: boolean;
+
   limit?: number;
+
   skip?: number;
 }
 
 export interface ListLinkResultI {
   data: LinkI[];
+
   limit: number;
+
   skip: number;
+
   total: number;
 }
 
 export interface LinkI {
   address: string;
+
   banned: boolean;
+
   created_at: Date;
+
   description: string;
+
   id: string;
+
   link: string;
+
   password: boolean;
+
   target: string;
+
   updated_at: Date;
+
   visit_count: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type NewLinkT = {
   customurl?: string;
+
   description?: string;
+
   domain?: string;
+
   expire_in?: string;
+
   password?: string;
+
   reuse?: boolean;
+
   target: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type UpdateLinkT = {
   address: string;
+
   description?: string;
+
   expire_in?: string;
+
   target: string;
 };
 
 export interface LinkStatsI {
   address: string;
+
   banned: boolean;
+
   created_at: Date;
+
   id: string;
+
   link: string;
+
   password: boolean;
+
   target: string;
+
   updatedAt: string;
+
   updated_at: Date;
+
   visit_count: number;
 }
 
 export interface LinkDurationStatsI {
   stats: LinkStatDetailsI[];
+
   views: number[];
 }
 
 export interface LinkStatDetailsI {
   browser: LinkStatDetailI[];
+
   country: LinkStatDetailI[];
+
   os: LinkStatDetailI[];
+
   referrer: LinkStatDetailI[];
 }
 
 export interface LinkStatDetailI {
   name: string;
+
   value: number;
 }

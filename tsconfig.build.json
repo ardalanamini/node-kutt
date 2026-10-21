@@ -1,0 +1,15 @@
+{
+  "extends": ["./tsconfig.json"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noEmit": false,
+  },
+  "include": ["src"],
+  "exclude": [
+    "dist",
+    "commitlint.config.ts",
+    "oxlint.config.ts",
+    "knip.config.ts",
+  ],
+}

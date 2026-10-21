@@ -1,0 +1,22 @@
+commit-msg:
+  parallel: true
+  jobs:
+    - name: commit message format
+      run: pnpm exec commitlint --edit {1}
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: lint
+      run: pnpm lint:fix --format=stylish {staged_files}
+      glob: "*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"
+      stage_fixed: true
+
+    - name: build
+      run: pnpm build
+
+    - name: type check
+      run: pnpm typecheck
+
+    - name: deep code/dependency analysis
+      run: pnpm knip

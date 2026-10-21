@@ -1,5 +1,5 @@
-import API from "./API.js";
-import { DomainI } from "./Domain.js";
+import type { DomainI } from "./domain.js";
+import API from "./api.js";
 
 /**
  *
@@ -28,6 +28,8 @@ export default class User extends API {
 
 export interface UserI {
   apikey: string;
+
   domains: DomainI[];
+
   email: string;
 }
