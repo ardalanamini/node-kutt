@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "tsBuildInfoFile": "./build/.esm.tsbuildinfo",
-    "module": "ESNext",
-    "outDir": "./build/esm"
-  }
-}

@@ -1,5 +1,4 @@
-export { default as API } from "#src/API";
-export { METHOD, type RequestI, type BodyT, type ParamsT } from "./API.js";
+export { default as API, METHOD, type RequestI, type BodyT, type ParamsT } from "./API.js";
 export { default as Domain, type DomainI, type NewDomainT } from "./Domain.js";
 export { default as Health } from "./Health.js";
 export {

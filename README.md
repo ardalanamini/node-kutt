@@ -18,8 +18,6 @@ Node.js & browser (TypeScript) client for [Kutt](https://kutt.to) url shortener.
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [CommonJS](#commonjs)
-  - [ECMAScript](#ecmascript)
   - [Default Config](#default-config)
   - [Instance](#instance)
   - [Instance Config](#instance-config)
@@ -38,20 +36,6 @@ npm i kutt
 ```
 
 ## Usage
-
-### CommonJS
-
-```typescript
-const Kutt = require("kutt").default;
-```
-
-or
-
-```typescript
-const { Kutt } = require("kutt");
-```
-
-### ECMAScript
 
 ```typescript
 import Kutt from "kutt";
