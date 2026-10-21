@@ -167,6 +167,8 @@ settings:
   injectWorkspacePackages: true
   linkWorkspacePackages: false
 
+pnpmfileChecksum: sha256-RPjk69GR24S+KPlSRzBO3kdf4U46oDawt7xLz2IWcGU=
+
 importers:
 
   .:
@@ -180,6 +182,9 @@ importers:
       '@commitlint/types':
         specifier: 21.2.3
         version: 21.2.3
+      '@pnpm/types':
+        specifier: 1102.1.1
+        version: 1102.1.1
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -203,7 +208,7 @@ importers:
         version: 7.0.2004
       typedoc:
         specifier: 0.28.20
-        version: 0.28.20(typescript@7.0.2)
+        version: 0.28.20
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -786,6 +791,10 @@ packages:
   '@pkgr/utils@2.3.1':
     resolution: {integrity: sha512-wfzX8kc1PMyUILA+1Z/EqoE4UCXGy0iRGMhPwdfae1+f0OXlLqCk+By+aMzgJBzR9AzS4CDizioG6Ss1gvAFJw==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  '@pnpm/types@1102.1.1':
+    resolution: {integrity: sha512-rPauWzpgjzxE/l5OS8gGdeW0K1oF3PPjraGzNg4CA4bbaTDdE2BwmUWJHaADbSF0/EqI0WufrZkSavVTzKFBEg==}
+    engines: {node: '>=22.13'}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -2292,8 +2301,11 @@ packages:
     resolution: {integrity: sha512-uSKqkh8Cr48vllnEy+jdaAgOeR6Y+QCBW7usgUsKj7gJEfR7stw9U/fE49LBnj2tPRKPY0c0EBJSWe9Appmplg==}
     engines: {node: '>= 18', pnpm: '>= 10'}
     hasBin: true
-    peerDependencies:
-      typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x || 5.8.x || 5.9.x || 6.0.x
+
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
 
   typescript@7.0.2:
     resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
@@ -2835,6 +2847,8 @@ snapshots:
       tiny-glob: 0.2.9
       tslib: 2.4.0
     optional: true
+
+  '@pnpm/types@1102.1.1': {}
 
   '@rtsao/scc@1.1.0': {}
 
@@ -4559,14 +4573,16 @@ snapshots:
       possible-typed-array-names: 1.1.0
       reflect.getprototypeof: 1.0.10
 
-  typedoc@0.28.20(typescript@7.0.2):
+  typedoc@0.28.20:
     dependencies:
       '@gerrit0/mini-shiki': 3.23.0
       lunr: 2.3.9
       markdown-it: 14.3.3
       minimatch: 10.2.6
-      typescript: 7.0.2
+      typescript: 6.0.3
       yaml: 2.9.1
+
+  typescript@6.0.3: {}
 
   typescript@7.0.2:
     optionalDependencies:

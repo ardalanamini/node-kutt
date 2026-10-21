@@ -36,7 +36,7 @@ export default class Link extends API {
   /**
    * Gets list of links.
    *
-   * @param params
+   * @param parameters
    * @param [parameters.skip=0]
    * @param [parameters.limit=10]
    * @param [parameters.all=false]

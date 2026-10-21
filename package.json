@@ -68,6 +68,7 @@
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@commitlint/types": "21.2.3",
+    "@pnpm/types": "1102.1.1",
     "@types/node": "26.6.5",
     "is-ci": "4.1.0",
     "knip": "6.42.1",
