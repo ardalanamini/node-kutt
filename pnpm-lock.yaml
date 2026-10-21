@@ -172,8 +172,8 @@ importers:
   .:
     devDependencies:
       '@types/node':
-        specifier: ^18.11.0
-        version: 18.11.0
+        specifier: ^26.6.5
+        version: 26.6.5
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.40.0
         version: 5.40.0(@typescript-eslint/parser@5.40.0(eslint@8.25.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@4.8.4))(eslint@8.25.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@4.8.4)
@@ -240,8 +240,8 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  '@types/node@18.11.0':
-    resolution: {integrity: sha512-IOXCvVRToe7e0ny7HpT/X9Rb2RYtElG1a+VshjwT00HxrM2dWBApHQoqsI6WiY7Q03vdf2bCrIGzVrkF/5t10w==}
+  '@types/node@26.6.5':
+    resolution: {integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==}
 
   '@typescript-eslint/eslint-plugin@5.40.0':
     resolution: {integrity: sha512-FIBZgS3DVJgqPwJzvZTuH4HNsZhHMa9SjxTKAZTlMsPw/UzpEjcf9f4dfgDJEHjK+HboUJo123Eshl6niwEm/Q==}
@@ -1046,6 +1046,9 @@ packages:
   unbox-primitive@1.0.1:
     resolution: {integrity: sha512-tZU/3NqK3dA5gpE1KtyiJUrEB0lxnGkMFHptJ7q6ewdZ8s12QrODwNbhIJStmJkd1QDXa1NRA8aF2A1zk/Ypyw==}
 
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
+
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
@@ -1130,7 +1133,9 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
-  '@types/node@18.11.0': {}
+  '@types/node@26.6.5':
+    dependencies:
+      undici-types: 8.9.0
 
   '@typescript-eslint/eslint-plugin@5.40.0(@typescript-eslint/parser@5.40.0(eslint@8.25.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@4.8.4))(eslint@8.25.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@4.8.4)':
     dependencies:
@@ -1984,6 +1989,8 @@ snapshots:
       has-bigints: 1.0.1
       has-symbols: 1.0.2
       which-boxed-primitive: 1.0.2
+
+  undici-types@8.9.0: {}
 
   uri-js@4.4.1:
     dependencies:
