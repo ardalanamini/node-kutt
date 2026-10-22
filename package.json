@@ -25,7 +25,7 @@
     "package.json"
   ],
   "engines": {
-    "node": ">= 16.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -40,7 +40,7 @@
     "prepare": "is-ci || lefthook install"
   },
   "type": "module",
-  "packageManager": "pnpm@12.14.0",
+  "packageManager": "pnpm@12.15.0",
   "sideEffects": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -55,20 +55,35 @@
     "access": "public",
     "provenance": true,
     "imports": {
-      "#src/*": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
+      "#api/*": {
+        "types": "./dist/api/*.d.ts",
+        "default": "./dist/api/*.js"
+      },
+      "#constants/*": {
+        "types": "./dist/constants/*.constants.d.ts",
+        "default": "./dist/constants/*.constants.js"
+      },
+      "#errors/*": {
+        "types": "./dist/errors/*.error.d.ts",
+        "default": "./dist/errors/*.error.js"
+      },
+      "#utils/*": {
+        "types": "./dist/utils/*.utils.d.ts",
+        "default": "./dist/utils/*.utils.js"
       }
     }
   },
   "imports": {
-    "#src/*": "./src/*.ts"
+    "#api/*": "./src/api/*.ts",
+    "#constants/*": "./src/constants/*.constants.ts",
+    "#errors/*": "./src/errors/*.error.ts",
+    "#utils/*": "./src/utils/*.utils.ts"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@commitlint/types": "21.2.3",
-    "@pnpm/types": "1102.1.1",
+    "@pnpm/types": "1102.1.2",
     "@types/node": "26.6.5",
     "is-ci": "4.1.0",
     "knip": "6.42.1",

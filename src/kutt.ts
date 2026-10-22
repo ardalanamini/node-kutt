@@ -1,118 +1,98 @@
-import { Domain, Health, Link, User } from "#src/api/index";
-import CONFIG, { type ConfigI } from "#src/config";
+import { KUTT_CONFIG, KuttConfig } from "#utils/config";
+import { DomainAPI, HealthAPI, LinkAPI, UserAPI } from "./api/clients/index.js";
 
 /**
+ * Configurable client for the Kutt domains, health, links, and users APIs.
+ *
+ * Each API group copies the client's configuration when it is created.
+ * Later changes to the client affect API groups created after that change.
  *
  * @see {@link https://docs.kutt.to}
  * @example
- * const kutt = new Kutt();
+ * ```ts
+ * import { Kutt } from "kutt";
+ *
+ * const kutt = new Kutt().setAPIKey("YOUR_API_KEY");
+ * const link = await kutt.links().createV2({ target: "https://example.com" });
+ * ```
  */
-export default class Kutt {
+export class Kutt extends KuttConfig {
 
   /**
+   * Creates a client with a copy of {@link KUTT_CONFIG}, including sealed settings.
    *
-   * @private
+   * Later changes to the global configuration do not affect this client.
    */
-  #config: ConfigI = { ...CONFIG };
-
-  /**
-   * Gets default/global config.
-   *
-   * @param config
-   * @example
-   * const api = Kutt.get("api");
-   */
-  public static get<Config extends keyof ConfigI>(config: Config): ConfigI[Config] {
-    return CONFIG[config];
+  public constructor() {
+    super(KUTT_CONFIG);
   }
 
   /**
-   * Sets default/global config.
+   * Creates a domains API group with a copy of this client's configuration.
    *
-   * @param config
-   * @param value
-   * @example
-   * Kutt.set("api", "https://kutt.to/api/v2");
-   * @example
-   * Kutt.set("api", "https://kutt.to/api/v2")
-   *   .set("timeout", 1e4);
-   */
-  public static set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): typeof Kutt {
-    CONFIG[config] = value;
-
-    return this;
-  }
-
-  /**
-   * Domains API.
-   *
+   * @returns A new {@link DomainAPI} instance.
    * @see {@link https://docs.kutt.to/#tag/domains}
    * @example
+   * ```ts
+   * import { Kutt } from "kutt";
+   *
+   * const kutt = new Kutt().setAPIKey("YOUR_API_KEY");
    * const domains = kutt.domains();
+   * ```
    */
-  public domains(): Domain {
-    return new Domain(this.#config);
+  public domains(): DomainAPI {
+    return new DomainAPI(this);
   }
 
   /**
-   * Gets instance config.
+   * Creates a health API group with a copy of this client's configuration.
    *
-   * @param config
-   * @example
-   * const api = kutt.get("api");
-   */
-  public get<Config extends keyof ConfigI>(config: Config): ConfigI[Config] {
-    return this.#config[config];
-  }
-
-  /**
-   * Health API.
-   *
+   * @returns A new {@link HealthAPI} instance.
    * @see {@link https://docs.kutt.to/#tag/health}
    * @example
-   * const health = kutt.health();
+   * ```ts
+   * import { Kutt } from "kutt";
+   *
+   * const health = new Kutt().health();
+   * const isHealthy = await health.checkV2();
+   * ```
    */
-  public health(): Health {
-    return new Health(this.#config);
+  public health(): HealthAPI {
+    return new HealthAPI(this);
   }
 
   /**
-   * Links API.
+   * Creates a links API group with a copy of this client's configuration.
    *
+   * @returns A new {@link LinkAPI} instance.
    * @see {@link https://docs.kutt.to/#tag/links}
    * @example
+   * ```ts
+   * import { Kutt } from "kutt";
+   *
+   * const kutt = new Kutt().setAPIKey("YOUR_API_KEY");
    * const links = kutt.links();
+   * ```
    */
-  public links(): Link {
-    return new Link(this.#config);
+  public links(): LinkAPI {
+    return new LinkAPI(this);
   }
 
   /**
-   * Sets instance config.
+   * Creates a users API group with a copy of this client's configuration.
    *
-   * @param config
-   * @param value
-   * @example
-   * kutt = kutt.set("api", , "https://kutt.to/api/v2");
-   * @example
-   * kutt = kutt.set("api", , "https://kutt.to/api/v2")
-   *   .set("timeout", 1e4);
-   */
-  public set<Config extends keyof ConfigI>(config: Config, value: ConfigI[Config]): this {
-    this.#config[config] = value;
-
-    return this;
-  }
-
-  /**
-   * Users API.
-   *
+   * @returns A new {@link UserAPI} instance.
    * @see {@link https://docs.kutt.to/#tag/users}
    * @example
+   * ```ts
+   * import { Kutt } from "kutt";
+   *
+   * const kutt = new Kutt().setAPIKey("YOUR_API_KEY");
    * const users = kutt.users();
+   * ```
    */
-  public users(): User {
-    return new User(this.#config);
+  public users(): UserAPI {
+    return new UserAPI(this);
   }
 
 }

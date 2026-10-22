@@ -1,5 +1,4 @@
-export * from "#src/api/index";
-export { type ConfigI } from "#src/config";
-
-// oxlint-disable-next-line no-duplicate-imports
-export { default, default as Kutt } from "#src/kutt";
+export * from "./api/index.js";
+export * from "./errors/index.js";
+export * from "./kutt.js";
+export { type KuttConfig, KUTT_CONFIG } from "./utils/config.utils.js";

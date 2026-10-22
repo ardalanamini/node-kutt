@@ -14,22 +14,15 @@ Node.js & browser (TypeScript) client for [Kutt](https://kutt.to) url shortener.
 [![Github Stars](https://img.shields.io/github/stars/ardalanamini/node-kutt.svg?style=social&label=Stars)](https://github.com/ardalanamini/node-kutt)
 [![Github Forks](https://img.shields.io/github/forks/ardalanamini/node-kutt.svg?style=social&label=Fork)](https://github.com/ardalanamini/node-kutt)
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Default Config](#default-config)
-  - [Instance](#instance)
-  - [Instance Config](#instance-config)
-  - [Domains](#domains)
-  - [Health](#health)
-  - [Links](#links)
-  - [Users](#users)
-- [Versioning](#versioning)
-- [Authors](#authors)
-- [License](#license)
-
 ## Installation
+
+Requires Node.js >=22. This package uses ECMAScript modules (ESM).
+
+```shell
+pnpm add kutt
+```
+
+or
 
 ```shell
 npm i kutt
@@ -37,187 +30,55 @@ npm i kutt
 
 ## Usage
 
-```typescript
-import Kutt from "kutt";
-```
+Create a client and shorten a URL:
 
-or
-
-```typescript
+```ts
 import { Kutt } from "kutt";
+
+const kutt = new Kutt().setAPIKey("YOUR_API_KEY");
+
+const link = await kutt.links().createV2({
+  target: "https://example.com/article",
+  customURL: "article",
+  expireIn: "2 days",
+});
+
+console.log(link.link);
+
+const page = await kutt.links().listV2({ limit: 10 });
+console.log(page.data);
 ```
 
-### Default Config
+You can also call endpoints directly:
 
-#### Get
+```ts
+import { listKuttLinksV2 } from "kutt";
 
-```typescript
-const api: string = Kutt.get("api");
-
-const key: string = Kutt.get("key");
-
-const timeout: number = Kutt.get("timeout");
+const page = await listKuttLinksV2({
+  limit: 10,
+  apiKey: "YOUR_API_KEY",
+});
 ```
 
-#### Set
+Set defaults before creating clients, including when using a self-hosted Kutt server:
 
-```typescript
-Kutt
-  .set("api", "https://kutt.to/api/v2") // API base url (Default value)
-  .set("key", "") // API key (Default value)
-  .set("timeout", 1e4); // Request timeout (Default value)
-```
+```ts
+import { KUTT_CONFIG, Kutt } from "kutt";
 
-### Instance
+KUTT_CONFIG
+  .setBaseURL("https://kutt.example.com/api/")
+  .setAPIKey("YOUR_API_KEY");
 
-```typescript
 const kutt = new Kutt();
+const isHealthy = await kutt.health().checkV2();
 ```
 
-### Instance Config
+Clients copy the defaults when constructed. Each API group copies its client's configuration when created.
 
-Override the default config only for the instance.
+## Documentation
 
-#### Get
-
-```typescript
-const api: string = kutt.get("api");
-
-const key: string = kutt.get("key");
-
-const timeout: number = kutt.get("timeout");
-```
-
-#### Set
-
-```typescript
-kutt
-  .set("api", "https://kutt.to/api/v2") // API base url
-  .set("key", "") // API key
-  .set("timeout", 1e4); // Request timeout
-```
-
-### Domains
-
-```typescript
-const domains = kutt.domains();
-```
-
-#### Create
-
-Create a domain.
-
-```typescript
-const domain = await domains.create({
-  address: "string",
-  homepage: "string",
-});
-```
-
-#### Delete
-
-Delete a domain.
-
-```typescript
-const message = await domains.remove(domain.id);
-```
-
-### Health
-
-```typescript
-const health = kutt.health();
-```
-
-#### Check
-
-Check API health.
-
-```typescript
-const isHealthy = await health.check();
-```
-
-### Links
-
-```typescript
-const links = kutt.links();
-```
-
-#### List
-
-Get list of links.
-
-```typescript
-const result = await links.list();
-```
-
-You can also pass in pagination params.
-
-```typescript
-const result = await links.list({
-  skip: 0, // Default value
-  limit: 10, // Default value
-  all: 10, // Default value
-});
-```
-
-#### Create
-
-Create a short link.
-
-```typescript
-const link = await links.create({
-  target: "string",
-  description: "string",
-  expire_in: "2 minutes/hours/days",
-  password: "string",
-  customurl: "string",
-  reuse: false,
-  domain: "string",
-});
-```
-
-#### Stats
-
-Get link stats.
-
-```typescript
-const stats = await links.stats(link.id);
-```
-
-#### Update
-
-Update a link.
-
-```typescript
-const updatedLink = await links.update(link.id, {
-  target: "string",
-  address: "string",
-  description: "string",
-  expire_in: "2 minutes/hours/days",
-});
-```
-
-#### Delete
-
-Delete a link.
-
-```typescript
-const message = await links.remove(link.id);
-```
-
-### Users
-
-```typescript
-const users = kutt.users();
-```
-
-#### Info
-
-Get user info.
-
-```typescript
-const info = await users.info();
-```
+See the [full API documentation](https://ardalanamini.github.io/node-kutt/) for all
+endpoints, configuration options, response types, and error handling.
 
 ## Versioning
 
