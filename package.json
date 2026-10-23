@@ -1,6 +1,6 @@
 {
   "name": "kutt",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Node.js & browser (TypeScript) client for Kutt url shortener",
   "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com)",
   "license": "MIT",
