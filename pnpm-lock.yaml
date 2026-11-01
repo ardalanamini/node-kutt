@@ -183,8 +183,8 @@ importers:
         specifier: 21.2.3
         version: 21.2.3
       '@pnpm/types':
-        specifier: 1102.1.2
-        version: 1102.1.2
+        specifier: 1102.1.3
+        version: 1102.1.3
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -792,8 +792,8 @@ packages:
     resolution: {integrity: sha512-wfzX8kc1PMyUILA+1Z/EqoE4UCXGy0iRGMhPwdfae1+f0OXlLqCk+By+aMzgJBzR9AzS4CDizioG6Ss1gvAFJw==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@pnpm/types@1102.1.2':
-    resolution: {integrity: sha512-B2Dt1fBR2DLX2ipme0F3Wzwj2S60rJ7Y8LpuIBNApT2nkShfk43ROeuxKcW+1JSs0YIBS8BnOpPswOwcDdf8Vg==}
+  '@pnpm/types@1102.1.3':
+    resolution: {integrity: sha512-uFm6fYunXaWeZs6um75cZefbmzszpaWdf8257a57HgyvodfEHugUKokUS/OEY1Xu15O9kWWlml8EbfX+sRdE/Q==}
     engines: {node: '>=22.13'}
 
   '@rtsao/scc@1.1.0':
@@ -2848,7 +2848,7 @@ snapshots:
       tslib: 2.4.0
     optional: true
 
-  '@pnpm/types@1102.1.2': {}
+  '@pnpm/types@1102.1.3': {}
 
   '@rtsao/scc@1.1.0': {}
 
